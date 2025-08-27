@@ -1,4 +1,4 @@
-const { getDatabase, generateCaseId, trim } = require('../../lib/database');
+const { generateCaseId, trim } = require('../../lib/database');
 
 export default function handler(req, res) {
   if (req.method !== 'POST') {
@@ -12,15 +12,10 @@ export default function handler(req, res) {
   }
 
   try {
-    const db = getDatabase();
     const caseId = generateCaseId();
     
-    const stmt = db.prepare(`
-      INSERT INTO employees (case_id, name, email, employer, position)
-      VALUES (?, ?, ?, ?, ?)
-    `);
-    
-    stmt.run(caseId, trim(name), trim(email), trim(employer), trim(position));
+    // Mock save - in production, replace with real database
+    console.log('Saving employee:', { caseId, name: trim(name), email: trim(email), employer: trim(employer), position: trim(position) });
     
     res.status(200).json({ caseId, success: true });
   } catch (error) {

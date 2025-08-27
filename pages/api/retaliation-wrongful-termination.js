@@ -1,4 +1,4 @@
-const { getDatabase, trim, safeDate } = require('../../lib/database');
+const { trim, safeDate } = require('../../lib/database');
 
 export default function handler(req, res) {
   if (req.method !== 'POST') {
@@ -12,21 +12,14 @@ export default function handler(req, res) {
   } = req.body;
 
   try {
-    const db = getDatabase();
-    
-    const stmt = db.prepare(`
-      INSERT INTO retaliation_wrongful_termination (
-        case_id, name, email, employer, position,
-        protected_activities, adverse_actions, date_of_adverse_action,
-        reason_given, description
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `);
-
-    stmt.run(
-      caseId, trim(name), trim(email), trim(employer), trim(position),
-      (protectedActivities || []).join('; '), (adverseActions || []).join('; '),
-      safeDate(dateOfAdverseAction), trim(reasonGiven), trim(description)
-    );
+    // Mock save - in production, replace with real database
+    console.log('Saving retaliation wrongful termination:', {
+      caseId, name: trim(name), email: trim(email), employer: trim(employer), position: trim(position),
+      protectedActivities: (protectedActivities || []).join('; '),
+      adverseActions: (adverseActions || []).join('; '),
+      dateOfAdverseAction: safeDate(dateOfAdverseAction),
+      reasonGiven: trim(reasonGiven), description: trim(description)
+    });
 
     res.status(200).json({ ok: true });
   } catch (error) {

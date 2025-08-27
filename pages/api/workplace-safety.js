@@ -1,4 +1,4 @@
-const { getDatabase, trim, safeDate } = require('../../lib/database');
+const { trim, safeDate } = require('../../lib/database');
 
 export default function handler(req, res) {
   if (req.method !== 'POST') {
@@ -12,21 +12,14 @@ export default function handler(req, res) {
   } = req.body;
 
   try {
-    const db = getDatabase();
-    
-    const stmt = db.prepare(`
-      INSERT INTO workplace_safety (
-        case_id, name, email, employer, position,
-        hazards, reported_to, retaliation,
-        start_date, end_date, description
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `);
-
-    stmt.run(
-      caseId, trim(name), trim(email), trim(employer), trim(position),
-      (hazards || []).join('; '), (reportedTo || []).join('; '), !!retaliation ? 1 : 0,
-      safeDate(startDate), safeDate(endDate), trim(description)
-    );
+    // Mock save - in production, replace with real database
+    console.log('Saving workplace safety:', {
+      caseId, name: trim(name), email: trim(email), employer: trim(employer), position: trim(position),
+      hazards: (hazards || []).join('; '),
+      reportedTo: (reportedTo || []).join('; '),
+      retaliation: !!retaliation,
+      startDate: safeDate(startDate), endDate: safeDate(endDate), description: trim(description)
+    });
 
     res.status(200).json({ ok: true });
   } catch (error) {

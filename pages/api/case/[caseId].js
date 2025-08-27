@@ -1,4 +1,4 @@
-const { getDatabase } = require('../../../lib/database');
+// Mock case retrieval - in production, replace with real database
 
 export default function handler(req, res) {
   if (req.method !== 'GET') {
@@ -8,26 +8,18 @@ export default function handler(req, res) {
   const { caseId } = req.query;
   
   try {
-    const db = getDatabase();
+    // Mock case retrieval - in production, replace with real database
+    console.log('Retrieving case data for:', caseId);
     
-    const queries = [
-      { table: 'employees', key: 'employee' },
-      { table: 'wage_hour', key: 'wageHour' },
-      { table: 'discrimination_harassment', key: 'discriminationHarassment' },
-      { table: 'retaliation_wrongful_termination', key: 'retaliationWrongfulTermination' },
-      { table: 'leave_of_absence', key: 'leaveOfAbsence' },
-      { table: 'workplace_safety', key: 'workplaceSafety' }
-    ];
-
-    const result = {};
-
-    queries.forEach(({ table, key }) => {
-      const stmt = db.prepare(`SELECT * FROM ${table} WHERE case_id = ? ORDER BY timestamp DESC LIMIT 1`);
-      const row = stmt.get(caseId);
-      if (row) {
-        result[key] = row;
+    const result = {
+      employee: {
+        case_id: caseId,
+        name: 'Mock Employee',
+        email: 'mock@example.com',
+        employer: 'Mock Company',
+        position: 'Mock Position'
       }
-    });
+    };
 
     res.status(200).json(result);
   } catch (error) {

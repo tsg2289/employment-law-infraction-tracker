@@ -1,4 +1,4 @@
-const { getDatabase, trim, safeDate } = require('../../lib/database');
+const { trim, safeDate } = require('../../lib/database');
 
 export default function handler(req, res) {
   if (req.method !== 'POST') {
@@ -12,21 +12,13 @@ export default function handler(req, res) {
   } = req.body;
 
   try {
-    const db = getDatabase();
-    
-    const stmt = db.prepare(`
-      INSERT INTO leave_of_absence (
-        case_id, name, email, employer, position,
-        leave_types, leave_denied, not_reinstated, retaliation,
-        start_date, end_date, description
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `);
-
-    stmt.run(
-      caseId, trim(name), trim(email), trim(employer), trim(position),
-      (leaveTypes || []).join('; '), !!leaveDenied ? 1 : 0, !!notReinstated ? 1 : 0, !!retaliation ? 1 : 0,
-      safeDate(startDate), safeDate(endDate), trim(description)
-    );
+    // Mock save - in production, replace with real database
+    console.log('Saving leave of absence:', {
+      caseId, name: trim(name), email: trim(email), employer: trim(employer), position: trim(position),
+      leaveTypes: (leaveTypes || []).join('; '),
+      leaveDenied: !!leaveDenied, notReinstated: !!notReinstated, retaliation: !!retaliation,
+      startDate: safeDate(startDate), endDate: safeDate(endDate), description: trim(description)
+    });
 
     res.status(200).json({ ok: true });
   } catch (error) {
