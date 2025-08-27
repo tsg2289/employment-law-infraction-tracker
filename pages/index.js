@@ -97,15 +97,15 @@ export default function Home() {
     return false;
   };
 
-  // Send direct attorney email (simpler, more personal)
+  // Send direct attorney email with email client choice
   const sendDirectAttorneyEmail = () => {
     const employeeInfo = `${state.person.name || 'Potential Client'} (${state.person.email || 'Contact info needed'})`;
     const employerInfo = state.person.employer || 'Employer name needed';
     const currentData = getCurrentSectionData();
     
-    // Create direct consultation email
-    const subject = encodeURIComponent('URGENT: Employment Law Consultation Request');
-    const body = encodeURIComponent(
+    // Create direct consultation email content
+    const subject = 'URGENT: Employment Law Consultation Request';
+    const bodyText = 
       `Dear Attorney St. Germain,\n\n` +
       `I am requesting an urgent consultation regarding potential employment law violations. I found your Employment Law Infraction Tracker and need legal advice to protect my rights.\n\n` +
       `MY INFORMATION:\n` +
@@ -126,23 +126,37 @@ export default function Home() {
       `Best regards,\n` +
       `${state.person.name || '[Your name]'}\n\n` +
       `Case ID: ${state.caseId || 'Not yet created'}\n` +
-      `Generated from: Employment Law Infraction Tracker`
+      `Generated from: Employment Law Infraction Tracker`;
+
+    // Ask user to choose email client
+    const useGmail = window.confirm(
+      `📧 CHOOSE EMAIL CLIENT 📧\n\n` +
+      `How would you like to send your attorney consultation email?\n\n` +
+      `• Click "OK" to open Gmail (recommended for Gmail users)\n` +
+      `• Click "Cancel" to use your default email client`
     );
     
-    // Open email client
-    window.open(`mailto:thomas.st.germain22@gmail.com?subject=${subject}&body=${body}`);
-    
-    showToast('Direct consultation email opened. Send immediately to protect your legal rights.');
+    if (useGmail) {
+      // Open Gmail compose
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=thomas.st.germain22@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+      window.open(gmailUrl, '_blank');
+      showToast('Gmail opened. Send your consultation email to protect your legal rights.');
+    } else {
+      // Open default email client
+      const mailtoUrl = `mailto:thomas.st.germain22@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+      window.open(mailtoUrl);
+      showToast('Email client opened. Send your consultation email to protect your legal rights.');
+    }
   };
 
-  // Send attorney notification
+  // Send attorney notification with email client choice
   const sendAttorneyNotification = () => {
     const employeeInfo = `Name: ${state.person.name || 'Not provided'}\nEmail: ${state.person.email || 'Not provided'}\nEmployer: ${state.person.employer || 'Not provided'}`;
     const currentData = getCurrentSectionData();
     
-    // Create email mailto link
-    const subject = encodeURIComponent('URGENT: Employment Law Case - Attorney Consultation Requested');
-    const body = encodeURIComponent(
+    // Create email content
+    const subject = 'URGENT: Employment Law Case - Attorney Consultation Requested';
+    const bodyText = 
       `URGENT ATTORNEY CONSULTATION REQUEST\n\n` +
       `Dear Attorney St. Germain,\n\n` +
       `An individual has identified potential employment law violations through your Employment Law Infraction Tracker and is requesting immediate attorney consultation to preserve attorney-client privilege.\n\n` +
@@ -158,13 +172,27 @@ export default function Home() {
       `Thomas St. Germain is a licensed attorney specializing in employment law matters. ` +
       `This Employment Law Infraction Tracker was created to help individuals identify and document ` +
       `potential workplace violations while ensuring proper legal protections are in place.\n\n` +
-      `This notification was automatically generated from the Employment Law Infraction Tracker application.`
+      `This notification was automatically generated from the Employment Law Infraction Tracker application.`;
+
+    // Ask user to choose email client
+    const useGmail = window.confirm(
+      `📧 SEND ATTORNEY NOTIFICATION 📧\n\n` +
+      `Choose how to send your urgent attorney consultation request:\n\n` +
+      `• Click "OK" to open Gmail\n` +
+      `• Click "Cancel" to use your default email client`
     );
     
-    // Open email client
-    window.open(`mailto:thomas.st.germain22@gmail.com?subject=${subject}&body=${body}`);
-    
-    showToast('Attorney notification sent to Thomas St. Germain, Esq. Please send this email to establish attorney-client privilege.');
+    if (useGmail) {
+      // Open Gmail compose
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=thomas.st.germain22@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+      window.open(gmailUrl, '_blank');
+      showToast('Gmail opened with attorney notification. Send immediately to establish attorney-client privilege.');
+    } else {
+      // Open default email client
+      const mailtoUrl = `mailto:thomas.st.germain22@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+      window.open(mailtoUrl);
+      showToast('Email opened with attorney notification. Send immediately to establish attorney-client privilege.');
+    }
   };
 
   // Get current section data for attorney notification
@@ -530,7 +558,7 @@ export default function Home() {
           📧 Email Attorney St. Germain Now
         </button>
         <span style={{ fontSize: '10px', opacity: '0.8' }}>
-          Free consultation | Immediate response
+          Free consultation | Gmail or Default Email | Immediate response
         </span>
       </div>
       
