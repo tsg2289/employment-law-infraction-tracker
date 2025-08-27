@@ -385,7 +385,7 @@ export default function Home() {
                 <button className="btn" onClick={saveEmployee} disabled={loading}>
                   {loading ? 'Saving...' : 'Save & Continue'}
                 </button>
-                <span className="note">You'll unlock the category sidebars after saving.</span>
+                <span className="note">You&apos;ll unlock the category sidebars after saving.</span>
               </div>
               {state.caseId && (
                 <div className="note" style={{ marginTop: '8px' }}>
