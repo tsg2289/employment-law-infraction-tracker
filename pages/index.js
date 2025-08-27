@@ -22,10 +22,112 @@ export default function Home() {
     setTimeout(() => setToast(''), 2000);
   };
 
-  // Switch panel
+  // Switch panel with privilege warning
   const switchPanel = (panelId) => {
     console.log('Switching to panel:', panelId);
+    
+    // Check if leaving a legal section without saving
+    const legalSections = ['wagehour', 'disc', 'retal', 'leave', 'safety', 'review'];
+    const isLeavingLegalSection = legalSections.includes(currentPanel) && panelId !== currentPanel;
+    
+    // Check if there's unsaved data in current section
+    const hasUnsavedData = checkForUnsavedData();
+    
+    if (isLeavingLegalSection && hasUnsavedData) {
+      const shouldLeave = window.confirm(
+        `⚠️ ATTORNEY-CLIENT PRIVILEGE WARNING ⚠️\n\n` +
+        `You have unsaved information in this section. If you proceed without consulting an attorney, ` +
+        `your data may NOT be protected under attorney-client privilege in potential future litigation.\n\n` +
+        `RECOMMENDED: Send a notification to a live attorney to protect your rights.\n\n` +
+        `Do you want to:\n` +
+        `• Click "Cancel" to stay and save your information\n` +
+        `• Click "OK" to continue without attorney protection (NOT RECOMMENDED)`
+      );
+      
+      if (!shouldLeave) {
+        return; // Stay on current panel
+      } else {
+        // User chose to leave - offer attorney notification
+        const wantsAttorneyNotification = window.confirm(
+          `FINAL WARNING: Your employment law data may lose legal protection.\n\n` +
+          `Would you like to send a notification to a live attorney right now?\n\n` +
+          `• Click "OK" to send attorney notification (RECOMMENDED)\n` +
+          `• Click "Cancel" to proceed without protection`
+        );
+        
+        if (wantsAttorneyNotification) {
+          sendAttorneyNotification();
+        }
+      }
+    }
+    
     setCurrentPanel(panelId);
+  };
+
+  // Check if current section has unsaved data
+  const checkForUnsavedData = () => {
+    if (currentPanel === 'wagehour') {
+      return getChecked('wh_ot') || getChecked('wh_meal') || getValue('wh_desc');
+    } else if (currentPanel === 'disc') {
+      return getChecked('dh_sexhar') || getChecked('dh_hostile') || getValue('dh_desc');
+    } else if (currentPanel === 'retal') {
+      return getCheckedValues('.ra_pa').length > 0 || getCheckedValues('.ra_aa').length > 0 || getValue('ra_desc');
+    } else if (currentPanel === 'leave') {
+      return getCheckedValues('.lv_type').length > 0 || getChecked('lv_denied') || getValue('lv_desc');
+    } else if (currentPanel === 'safety') {
+      return getCheckedValues('.sf_haz').length > 0 || getCheckedValues('.sf_rep').length > 0 || getValue('sf_desc');
+    }
+    return false;
+  };
+
+  // Send attorney notification
+  const sendAttorneyNotification = () => {
+    const employeeInfo = `Name: ${state.person.name || 'Not provided'}\nEmail: ${state.person.email || 'Not provided'}\nEmployer: ${state.person.employer || 'Not provided'}`;
+    const currentData = getCurrentSectionData();
+    
+    // Create email mailto link
+    const subject = encodeURIComponent('URGENT: Employment Law Case - Attorney Consultation Requested');
+    const body = encodeURIComponent(
+      `URGENT ATTORNEY CONSULTATION REQUEST\n\n` +
+      `Dear Attorney St. Germain,\n\n` +
+      `An individual has identified potential employment law violations through your Employment Law Infraction Tracker and is requesting immediate attorney consultation to preserve attorney-client privilege.\n\n` +
+      `EMPLOYEE INFORMATION:\n${employeeInfo}\n\n` +
+      `CASE ID: ${state.caseId || 'Not yet created'}\n\n` +
+      `LEGAL ISSUES IDENTIFIED:\n${currentData}\n\n` +
+      `TIME SENSITIVE REQUEST: This individual needs immediate legal consultation to:\n` +
+      `• Establish attorney-client privilege\n` +
+      `• Protect their legal rights and evidence\n` +
+      `• Ensure proper legal strategy for potential litigation\n\n` +
+      `Please contact this individual as soon as possible to provide legal guidance and establish the attorney-client relationship.\n\n` +
+      `About Attorney Thomas St. Germain:\n` +
+      `Thomas St. Germain is a licensed attorney specializing in employment law matters. ` +
+      `This Employment Law Infraction Tracker was created to help individuals identify and document ` +
+      `potential workplace violations while ensuring proper legal protections are in place.\n\n` +
+      `This notification was automatically generated from the Employment Law Infraction Tracker application.`
+    );
+    
+    // Open email client
+    window.open(`mailto:thomas.st.germain22@gmail.com?subject=${subject}&body=${body}`);
+    
+    showToast('Attorney notification sent to Thomas St. Germain, Esq. Please send this email to establish attorney-client privilege.');
+  };
+
+  // Get current section data for attorney notification
+  const getCurrentSectionData = () => {
+    switch (currentPanel) {
+      case 'wagehour':
+        return 'Wage & Hour Violations: Potential overtime, break, or wage issues identified';
+      case 'disc':
+        return 'Discrimination & Harassment: Potential workplace discrimination or harassment identified';
+      case 'retal':
+        return 'Retaliation & Wrongful Termination: Potential retaliation or wrongful termination identified';
+      case 'leave':
+        return 'Leave of Absence Issues: Potential FMLA/CFRA or leave-related violations identified';
+      case 'safety':
+        return 'Workplace Safety Violations: Potential safety hazards or OSHA violations identified';
+      default:
+        return 'Employment law violations identified';
+    }
   };
 
   // Form helpers
@@ -410,7 +512,11 @@ export default function Home() {
             </button>
           </nav>
           <footer>
-            Data is saved to the application database for review and export.
+            <div>Data is saved to the application database for review and export.</div>
+            <div style={{ marginTop: '8px', fontSize: '11px', opacity: '0.8' }}>
+              Created by Thomas St. Germain, Esq. | Employment Law Attorney<br/>
+              For legal consultation: thomas.st.germain22@gmail.com
+            </div>
           </footer>
         </aside>
 
@@ -457,6 +563,9 @@ export default function Home() {
           {currentPanel === 'wagehour' && (
             <section className="card">
               <h2>Wage & Hour</h2>
+              <div style={{ background: '#2d1b69', border: '1px solid #4c1d95', borderRadius: '8px', padding: '12px', marginBottom: '16px', fontSize: '12px' }}>
+                <strong>⚖️ LEGAL NOTICE:</strong> Information entered here may be subject to attorney-client privilege if you consult with an attorney. For maximum legal protection, consider consulting Thomas St. Germain, Esq. (thomas.st.germain22@gmail.com) or another qualified employment attorney before proceeding.
+              </div>
               <div className="checkgrid">
                 <label><input type="checkbox" id="wh_ot" /> Unpaid overtime</label>
                 <label><input type="checkbox" id="wh_meal" /> Meal break issues</label>
@@ -492,6 +601,9 @@ export default function Home() {
           {currentPanel === 'disc' && (
             <section className="card">
               <h2>Discrimination & Harassment</h2>
+              <div style={{ background: '#2d1b69', border: '1px solid #4c1d95', borderRadius: '8px', padding: '12px', marginBottom: '16px', fontSize: '12px' }}>
+                <strong>⚖️ LEGAL NOTICE:</strong> Information entered here may be subject to attorney-client privilege if you consult with an attorney. For maximum legal protection, consider consulting Thomas St. Germain, Esq. (thomas.st.germain22@gmail.com) or another qualified employment attorney before proceeding.
+              </div>
               <div className="checkgrid">
                 <label><input type="checkbox" id="dh_sexhar" /> Sexual harassment</label>
                 <label><input type="checkbox" id="dh_hostile" /> Hostile work environment</label>
@@ -538,6 +650,9 @@ export default function Home() {
           {currentPanel === 'retal' && (
             <section className="card">
               <h2>Retaliation & Wrongful Termination</h2>
+              <div style={{ background: '#2d1b69', border: '1px solid #4c1d95', borderRadius: '8px', padding: '12px', marginBottom: '16px', fontSize: '12px' }}>
+                <strong>⚖️ LEGAL NOTICE:</strong> Information entered here may be subject to attorney-client privilege if you consult with an attorney. For maximum legal protection, consider consulting Thomas St. Germain, Esq. (thomas.st.germain22@gmail.com) or another qualified employment attorney before proceeding.
+              </div>
               <label>Protected activities (check all that apply)</label>
               <div className="checkgrid">
                 <label><input type="checkbox" className="ra_pa" value="Reported harassment/discrimination" /> Reported harassment/discrimination</label>
@@ -580,6 +695,9 @@ export default function Home() {
           {currentPanel === 'leave' && (
             <section className="card">
               <h2>Leave of Absence</h2>
+              <div style={{ background: '#2d1b69', border: '1px solid #4c1d95', borderRadius: '8px', padding: '12px', marginBottom: '16px', fontSize: '12px' }}>
+                <strong>⚖️ LEGAL NOTICE:</strong> Information entered here may be subject to attorney-client privilege if you consult with an attorney. For maximum legal protection, consider consulting Thomas St. Germain, Esq. (thomas.st.germain22@gmail.com) or another qualified employment attorney before proceeding.
+              </div>
               <label>Leave types (check all that apply)</label>
               <div className="checkgrid">
                 <label><input type="checkbox" className="lv_type" value="CFRA/FMLA" /> CFRA/FMLA</label>
@@ -617,6 +735,9 @@ export default function Home() {
           {currentPanel === 'safety' && (
             <section className="card">
               <h2>Workplace Safety</h2>
+              <div style={{ background: '#2d1b69', border: '1px solid #4c1d95', borderRadius: '8px', padding: '12px', marginBottom: '16px', fontSize: '12px' }}>
+                <strong>⚖️ LEGAL NOTICE:</strong> Information entered here may be subject to attorney-client privilege if you consult with an attorney. For maximum legal protection, consider consulting Thomas St. Germain, Esq. (thomas.st.germain22@gmail.com) or another qualified employment attorney before proceeding.
+              </div>
               <label>Hazards (check all that apply)</label>
               <div className="checkgrid">
                 <label><input type="checkbox" className="sf_haz" value="Unsafe conditions/equipment" /> Unsafe conditions/equipment</label>
