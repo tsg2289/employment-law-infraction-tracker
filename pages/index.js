@@ -91,6 +91,13 @@ export default function Home() {
 
   // Save wage & hour
   const saveWageHour = async () => {
+    // If no case ID, create one first
+    if (!state.caseId) {
+      showToast('Please save employee information first');
+      switchPanel('start');
+      return;
+    }
+
     const payload = {
       caseId: state.caseId,
       ...state.person,
@@ -120,6 +127,13 @@ export default function Home() {
 
   // Save discrimination & harassment
   const saveDiscriminationHarassment = async () => {
+    // If no case ID, create one first
+    if (!state.caseId) {
+      showToast('Please save employee information first');
+      switchPanel('start');
+      return;
+    }
+
     const payload = {
       caseId: state.caseId,
       ...state.person,
@@ -146,6 +160,13 @@ export default function Home() {
 
   // Save retaliation & wrongful termination
   const saveRetaliation = async () => {
+    // If no case ID, create one first
+    if (!state.caseId) {
+      showToast('Please save employee information first');
+      switchPanel('start');
+      return;
+    }
+
     const payload = {
       caseId: state.caseId,
       ...state.person,
@@ -169,6 +190,13 @@ export default function Home() {
 
   // Save leave of absence
   const saveLeave = async () => {
+    // If no case ID, create one first
+    if (!state.caseId) {
+      showToast('Please save employee information first');
+      switchPanel('start');
+      return;
+    }
+
     const payload = {
       caseId: state.caseId,
       ...state.person,
@@ -194,6 +222,13 @@ export default function Home() {
 
   // Save workplace safety
   const saveWorkplaceSafety = async () => {
+    // If no case ID, create one first
+    if (!state.caseId) {
+      showToast('Please save employee information first');
+      switchPanel('start');
+      return;
+    }
+
     const payload = {
       caseId: state.caseId,
       ...state.person,
@@ -310,42 +345,36 @@ export default function Home() {
             </button>
             <button
               className={currentPanel === 'wagehour' ? 'active' : ''}
-              disabled={!state.caseId}
               onClick={() => switchPanel('wagehour')}
             >
               Wage & Hour
             </button>
             <button
               className={currentPanel === 'disc' ? 'active' : ''}
-              disabled={!state.caseId}
               onClick={() => switchPanel('disc')}
             >
               Discrimination & Harassment
             </button>
             <button
               className={currentPanel === 'retal' ? 'active' : ''}
-              disabled={!state.caseId}
               onClick={() => switchPanel('retal')}
             >
               Retaliation & Wrongful Termination
             </button>
             <button
               className={currentPanel === 'leave' ? 'active' : ''}
-              disabled={!state.caseId}
               onClick={() => switchPanel('leave')}
             >
               Leave of Absence
             </button>
             <button
               className={currentPanel === 'safety' ? 'active' : ''}
-              disabled={!state.caseId}
               onClick={() => switchPanel('safety')}
             >
               Workplace Safety
             </button>
             <button
               className={currentPanel === 'review' ? 'active' : ''}
-              disabled={!state.caseId}
               onClick={() => switchPanel('review')}
             >
               Review
@@ -385,7 +414,7 @@ export default function Home() {
                 <button className="btn" onClick={saveEmployee} disabled={loading}>
                   {loading ? 'Saving...' : 'Save & Continue'}
                 </button>
-                <span className="note">You&apos;ll unlock the category sidebars after saving.</span>
+                <span className="note">You can browse all sections, but save employee info first to enable data saving.</span>
               </div>
               {state.caseId && (
                 <div className="note" style={{ marginTop: '8px' }}>
