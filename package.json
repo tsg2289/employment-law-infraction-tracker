@@ -1,0 +1,27 @@
+{
+  "name": "employment-law-infraction-tracker",
+  "version": "1.0.0",
+  "description": "Employment Law Infraction Tracker - Modern web application for tracking employment law violations",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "vercel-build": "npm run build"
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "better-sqlite3": "^8.7.0",
+    "@vercel/analytics": "^1.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.48.0",
+    "eslint-config-next": "^14.0.0"
+  },
+  "keywords": ["employment", "law", "tracker", "infractions", "web-app", "nextjs", "vercel"],
+  "author": "Employment Law Tracker",
+  "license": "MIT"
+}
