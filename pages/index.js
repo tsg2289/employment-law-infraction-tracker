@@ -34,29 +34,46 @@ export default function Home() {
     const hasUnsavedData = checkForUnsavedData();
     
     if (isLeavingLegalSection && hasUnsavedData) {
+      // First prompt - privilege warning
       const shouldLeave = window.confirm(
         `⚠️ ATTORNEY-CLIENT PRIVILEGE WARNING ⚠️\n\n` +
         `You have unsaved information in this section. If you proceed without consulting an attorney, ` +
         `your data may NOT be protected under attorney-client privilege in potential future litigation.\n\n` +
-        `RECOMMENDED: Send a notification to a live attorney to protect your rights.\n\n` +
+        `RECOMMENDED: Consult with an attorney to protect your rights.\n\n` +
         `Do you want to:\n` +
-        `• Click "Cancel" to stay and save your information\n` +
-        `• Click "OK" to continue without attorney protection (NOT RECOMMENDED)`
+        `• Click "Cancel" to stay and save your information (RECOMMENDED)\n` +
+        `• Click "OK" to continue and see attorney consultation options`
       );
       
       if (!shouldLeave) {
         return; // Stay on current panel
       } else {
-        // User chose to leave - offer attorney notification
-        const wantsAttorneyNotification = window.confirm(
-          `FINAL WARNING: Your employment law data may lose legal protection.\n\n` +
-          `Would you like to send a notification to a live attorney right now?\n\n` +
-          `• Click "OK" to send attorney notification (RECOMMENDED)\n` +
-          `• Click "Cancel" to proceed without protection`
+        // Second prompt - attorney consultation options
+        const consultationChoice = window.confirm(
+          `⚖️ ATTORNEY CONSULTATION OPTIONS ⚖️\n\n` +
+          `To protect your legal rights, you should consult with an employment attorney.\n\n` +
+          `Thomas St. Germain, Esq. specializes in employment law and created this tracker to help employees.\n\n` +
+          `Choose your next step:\n` +
+          `• Click "OK" to email Attorney St. Germain now (RECOMMENDED)\n` +
+          `• Click "Cancel" to see other options`
         );
         
-        if (wantsAttorneyNotification) {
-          sendAttorneyNotification();
+        if (consultationChoice) {
+          // User chose to email attorney directly
+          sendDirectAttorneyEmail();
+        } else {
+          // Third prompt - final warning with email button
+          const finalChoice = window.confirm(
+            `🚨 FINAL WARNING 🚨\n\n` +
+            `Your employment law data may lose legal protection without attorney consultation.\n\n` +
+            `LAST CHANCE TO PROTECT YOUR RIGHTS:\n\n` +
+            `• Click "OK" to send urgent attorney notification (LAST CHANCE)\n` +
+            `• Click "Cancel" to proceed WITHOUT legal protection (NOT RECOMMENDED)`
+          );
+          
+          if (finalChoice) {
+            sendAttorneyNotification();
+          }
         }
       }
     }
@@ -78,6 +95,44 @@ export default function Home() {
       return getCheckedValues('.sf_haz').length > 0 || getCheckedValues('.sf_rep').length > 0 || getValue('sf_desc');
     }
     return false;
+  };
+
+  // Send direct attorney email (simpler, more personal)
+  const sendDirectAttorneyEmail = () => {
+    const employeeInfo = `${state.person.name || 'Potential Client'} (${state.person.email || 'Contact info needed'})`;
+    const employerInfo = state.person.employer || 'Employer name needed';
+    const currentData = getCurrentSectionData();
+    
+    // Create direct consultation email
+    const subject = encodeURIComponent('URGENT: Employment Law Consultation Request');
+    const body = encodeURIComponent(
+      `Dear Attorney St. Germain,\n\n` +
+      `I am requesting an urgent consultation regarding potential employment law violations. I found your Employment Law Infraction Tracker and need legal advice to protect my rights.\n\n` +
+      `MY INFORMATION:\n` +
+      `Name: ${state.person.name || '[Please provide]'}\n` +
+      `Email: ${state.person.email || '[Please provide]'}\n` +
+      `Phone: [Please provide]\n` +
+      `Current Employer: ${employerInfo}\n` +
+      `Position: ${state.person.position || '[Please provide]'}\n\n` +
+      `LEGAL ISSUES IDENTIFIED:\n${currentData}\n\n` +
+      `URGENT REQUEST:\n` +
+      `I need immediate legal consultation to:\n` +
+      `• Establish attorney-client privilege\n` +
+      `• Protect my evidence and legal rights\n` +
+      `• Understand my legal options\n` +
+      `• Ensure proper legal strategy\n\n` +
+      `Please contact me as soon as possible to discuss this matter and establish our attorney-client relationship.\n\n` +
+      `Thank you for creating this tracker tool and for your assistance.\n\n` +
+      `Best regards,\n` +
+      `${state.person.name || '[Your name]'}\n\n` +
+      `Case ID: ${state.caseId || 'Not yet created'}\n` +
+      `Generated from: Employment Law Infraction Tracker`
+    );
+    
+    // Open email client
+    window.open(`mailto:thomas.st.germain22@gmail.com?subject=${subject}&body=${body}`);
+    
+    showToast('Direct consultation email opened. Send immediately to protect your legal rights.');
   };
 
   // Send attorney notification
@@ -457,9 +512,31 @@ export default function Home() {
       fontWeight: position === 'bottom' ? 'bold' : 'normal'
     }}>
       <strong>⚖️ {position === 'top' ? 'LEGAL NOTICE' : 'IMPORTANT REMINDER'}:</strong> Information entered here may be subject to attorney-client privilege if you consult with an attorney. For maximum legal protection, consider consulting Thomas St. Germain, Esq. (thomas.st.germain22@gmail.com) or another qualified employment attorney before proceeding.
+      
+      <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+        <button 
+          onClick={sendDirectAttorneyEmail}
+          style={{ 
+            background: '#14b8a6', 
+            color: '#000', 
+            border: 'none', 
+            padding: '6px 12px', 
+            borderRadius: '6px', 
+            fontSize: '11px', 
+            fontWeight: 'bold',
+            cursor: 'pointer'
+          }}
+        >
+          📧 Email Attorney St. Germain Now
+        </button>
+        <span style={{ fontSize: '10px', opacity: '0.8' }}>
+          Free consultation | Immediate response
+        </span>
+      </div>
+      
       {position === 'bottom' && (
         <div style={{ marginTop: '8px', fontSize: '11px', opacity: '0.9' }}>
-          📧 For immediate consultation: thomas.st.germain22@gmail.com | ⚠️ Exiting without attorney consultation may compromise your legal rights.
+          ⚠️ Exiting without attorney consultation may compromise your legal rights.
         </div>
       )}
     </div>
