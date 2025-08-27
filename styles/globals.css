@@ -77,6 +77,11 @@ nav button:disabled {
   pointer-events: none;
 }
 
+nav button:not(:disabled) {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
 .content {
   padding: 20px;
 }

@@ -24,6 +24,7 @@ export default function Home() {
 
   // Switch panel
   const switchPanel = (panelId) => {
+    console.log('Switching to panel:', panelId);
     setCurrentPanel(panelId);
   };
 
@@ -338,44 +339,72 @@ export default function Home() {
           </div>
           <nav>
             <button
+              type="button"
               className={currentPanel === 'start' ? 'active' : ''}
-              onClick={() => switchPanel('start')}
+              onClick={(e) => {
+                e.preventDefault();
+                switchPanel('start');
+              }}
             >
               Start
             </button>
             <button
+              type="button"
               className={currentPanel === 'wagehour' ? 'active' : ''}
-              onClick={() => switchPanel('wagehour')}
+              onClick={(e) => {
+                e.preventDefault();
+                switchPanel('wagehour');
+              }}
             >
               Wage & Hour
             </button>
             <button
+              type="button"
               className={currentPanel === 'disc' ? 'active' : ''}
-              onClick={() => switchPanel('disc')}
+              onClick={(e) => {
+                e.preventDefault();
+                switchPanel('disc');
+              }}
             >
               Discrimination & Harassment
             </button>
             <button
+              type="button"
               className={currentPanel === 'retal' ? 'active' : ''}
-              onClick={() => switchPanel('retal')}
+              onClick={(e) => {
+                e.preventDefault();
+                switchPanel('retal');
+              }}
             >
               Retaliation & Wrongful Termination
             </button>
             <button
+              type="button"
               className={currentPanel === 'leave' ? 'active' : ''}
-              onClick={() => switchPanel('leave')}
+              onClick={(e) => {
+                e.preventDefault();
+                switchPanel('leave');
+              }}
             >
               Leave of Absence
             </button>
             <button
+              type="button"
               className={currentPanel === 'safety' ? 'active' : ''}
-              onClick={() => switchPanel('safety')}
+              onClick={(e) => {
+                e.preventDefault();
+                switchPanel('safety');
+              }}
             >
               Workplace Safety
             </button>
             <button
+              type="button"
               className={currentPanel === 'review' ? 'active' : ''}
-              onClick={() => switchPanel('review')}
+              onClick={(e) => {
+                e.preventDefault();
+                switchPanel('review');
+              }}
             >
               Review
             </button>
