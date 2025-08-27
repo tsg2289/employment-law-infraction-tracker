@@ -424,6 +424,47 @@ export default function Home() {
     }
   };
 
+  // Browser exit warning for legal sections
+  useEffect(() => {
+    const legalSections = ['wagehour', 'disc', 'retal', 'leave', 'safety', 'review'];
+    
+    const handleBeforeUnload = (e) => {
+      if (legalSections.includes(currentPanel) && checkForUnsavedData()) {
+        const message = '⚠️ ATTORNEY-CLIENT PRIVILEGE WARNING ⚠️\n\nYou have unsaved employment law information. Leaving without consulting an attorney may compromise your legal protections. Consider contacting Thomas St. Germain, Esq. at thomas.st.germain22@gmail.com before proceeding.';
+        e.preventDefault();
+        e.returnValue = message;
+        return message;
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [currentPanel]);
+
+  // Legal notice component
+  const LegalNotice = ({ position = 'top' }) => (
+    <div style={{ 
+      background: position === 'top' ? '#2d1b69' : '#1a0f4d', 
+      border: '1px solid #4c1d95', 
+      borderRadius: '8px', 
+      padding: '12px', 
+      marginBottom: position === 'top' ? '16px' : '0px', 
+      marginTop: position === 'bottom' ? '16px' : '0px',
+      fontSize: '12px',
+      fontWeight: position === 'bottom' ? 'bold' : 'normal'
+    }}>
+      <strong>⚖️ {position === 'top' ? 'LEGAL NOTICE' : 'IMPORTANT REMINDER'}:</strong> Information entered here may be subject to attorney-client privilege if you consult with an attorney. For maximum legal protection, consider consulting Thomas St. Germain, Esq. (thomas.st.germain22@gmail.com) or another qualified employment attorney before proceeding.
+      {position === 'bottom' && (
+        <div style={{ marginTop: '8px', fontSize: '11px', opacity: '0.9' }}>
+          📧 For immediate consultation: thomas.st.germain22@gmail.com | ⚠️ Exiting without attorney consultation may compromise your legal rights.
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <>
       <Head>
@@ -563,9 +604,7 @@ export default function Home() {
           {currentPanel === 'wagehour' && (
             <section className="card">
               <h2>Wage & Hour</h2>
-              <div style={{ background: '#2d1b69', border: '1px solid #4c1d95', borderRadius: '8px', padding: '12px', marginBottom: '16px', fontSize: '12px' }}>
-                <strong>⚖️ LEGAL NOTICE:</strong> Information entered here may be subject to attorney-client privilege if you consult with an attorney. For maximum legal protection, consider consulting Thomas St. Germain, Esq. (thomas.st.germain22@gmail.com) or another qualified employment attorney before proceeding.
-              </div>
+              <LegalNotice position="top" />
               <div className="checkgrid">
                 <label><input type="checkbox" id="wh_ot" /> Unpaid overtime</label>
                 <label><input type="checkbox" id="wh_meal" /> Meal break issues</label>
@@ -594,6 +633,7 @@ export default function Home() {
                 </button>
                 <span className="note">Saved items appear in your database.</span>
               </div>
+              <LegalNotice position="bottom" />
             </section>
           )}
 
@@ -601,9 +641,7 @@ export default function Home() {
           {currentPanel === 'disc' && (
             <section className="card">
               <h2>Discrimination & Harassment</h2>
-              <div style={{ background: '#2d1b69', border: '1px solid #4c1d95', borderRadius: '8px', padding: '12px', marginBottom: '16px', fontSize: '12px' }}>
-                <strong>⚖️ LEGAL NOTICE:</strong> Information entered here may be subject to attorney-client privilege if you consult with an attorney. For maximum legal protection, consider consulting Thomas St. Germain, Esq. (thomas.st.germain22@gmail.com) or another qualified employment attorney before proceeding.
-              </div>
+              <LegalNotice position="top" />
               <div className="checkgrid">
                 <label><input type="checkbox" id="dh_sexhar" /> Sexual harassment</label>
                 <label><input type="checkbox" id="dh_hostile" /> Hostile work environment</label>
@@ -643,6 +681,7 @@ export default function Home() {
                   {loading ? 'Saving...' : 'Save Discrimination/Harassment'}
                 </button>
               </div>
+              <LegalNotice position="bottom" />
             </section>
           )}
 
@@ -650,9 +689,7 @@ export default function Home() {
           {currentPanel === 'retal' && (
             <section className="card">
               <h2>Retaliation & Wrongful Termination</h2>
-              <div style={{ background: '#2d1b69', border: '1px solid #4c1d95', borderRadius: '8px', padding: '12px', marginBottom: '16px', fontSize: '12px' }}>
-                <strong>⚖️ LEGAL NOTICE:</strong> Information entered here may be subject to attorney-client privilege if you consult with an attorney. For maximum legal protection, consider consulting Thomas St. Germain, Esq. (thomas.st.germain22@gmail.com) or another qualified employment attorney before proceeding.
-              </div>
+              <LegalNotice position="top" />
               <label>Protected activities (check all that apply)</label>
               <div className="checkgrid">
                 <label><input type="checkbox" className="ra_pa" value="Reported harassment/discrimination" /> Reported harassment/discrimination</label>
@@ -688,6 +725,7 @@ export default function Home() {
                   {loading ? 'Saving...' : 'Save Retaliation/Wrongful Termination'}
                 </button>
               </div>
+              <LegalNotice position="bottom" />
             </section>
           )}
 
@@ -695,9 +733,7 @@ export default function Home() {
           {currentPanel === 'leave' && (
             <section className="card">
               <h2>Leave of Absence</h2>
-              <div style={{ background: '#2d1b69', border: '1px solid #4c1d95', borderRadius: '8px', padding: '12px', marginBottom: '16px', fontSize: '12px' }}>
-                <strong>⚖️ LEGAL NOTICE:</strong> Information entered here may be subject to attorney-client privilege if you consult with an attorney. For maximum legal protection, consider consulting Thomas St. Germain, Esq. (thomas.st.germain22@gmail.com) or another qualified employment attorney before proceeding.
-              </div>
+              <LegalNotice position="top" />
               <label>Leave types (check all that apply)</label>
               <div className="checkgrid">
                 <label><input type="checkbox" className="lv_type" value="CFRA/FMLA" /> CFRA/FMLA</label>
@@ -728,6 +764,7 @@ export default function Home() {
                   {loading ? 'Saving...' : 'Save Leave'}
                 </button>
               </div>
+              <LegalNotice position="bottom" />
             </section>
           )}
 
@@ -735,9 +772,7 @@ export default function Home() {
           {currentPanel === 'safety' && (
             <section className="card">
               <h2>Workplace Safety</h2>
-              <div style={{ background: '#2d1b69', border: '1px solid #4c1d95', borderRadius: '8px', padding: '12px', marginBottom: '16px', fontSize: '12px' }}>
-                <strong>⚖️ LEGAL NOTICE:</strong> Information entered here may be subject to attorney-client privilege if you consult with an attorney. For maximum legal protection, consider consulting Thomas St. Germain, Esq. (thomas.st.germain22@gmail.com) or another qualified employment attorney before proceeding.
-              </div>
+              <LegalNotice position="top" />
               <label>Hazards (check all that apply)</label>
               <div className="checkgrid">
                 <label><input type="checkbox" className="sf_haz" value="Unsafe conditions/equipment" /> Unsafe conditions/equipment</label>
@@ -773,6 +808,7 @@ export default function Home() {
                   {loading ? 'Saving...' : 'Save Safety'}
                 </button>
               </div>
+              <LegalNotice position="bottom" />
             </section>
           )}
 
