@@ -1,5 +1,16 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
+import { 
+  trackSignup, 
+  trackStartLog, 
+  trackSectionSave, 
+  trackExportReport, 
+  trackContactSubmit, 
+  trackPageView, 
+  trackAttorneyWarning, 
+  trackPrivilegeWarning,
+  trackError 
+} from '../lib/analytics';
 
 export default function Home() {
   const [state, setState] = useState({
@@ -26,6 +37,9 @@ export default function Home() {
   const switchPanel = (panelId) => {
     console.log('Switching to panel:', panelId);
     
+    // Track page view
+    trackPageView(panelId);
+    
     // Check if leaving a legal section without saving
     const legalSections = ['wagehour', 'disc', 'retal', 'leave', 'safety', 'review'];
     const isLeavingLegalSection = legalSections.includes(currentPanel) && panelId !== currentPanel;
@@ -34,6 +48,9 @@ export default function Home() {
     const hasUnsavedData = checkForUnsavedData();
     
     if (isLeavingLegalSection && hasUnsavedData) {
+      // Track privilege warning shown
+      trackPrivilegeWarning(currentPanel, 'shown');
+      
       // First prompt - privilege warning
       const shouldLeave = window.confirm(
         `⚠️ ATTORNEY-CLIENT PRIVILEGE WARNING ⚠️\n\n` +
@@ -46,8 +63,11 @@ export default function Home() {
       );
       
       if (!shouldLeave) {
+        trackPrivilegeWarning(currentPanel, 'dismissed');
         return; // Stay on current panel
       } else {
+        trackPrivilegeWarning(currentPanel, 'accepted');
+        
         // Second prompt - attorney consultation options
         const consultationChoice = window.confirm(
           `⚖️ ATTORNEY CONSULTATION OPTIONS ⚖️\n\n` +
@@ -60,6 +80,7 @@ export default function Home() {
         
         if (consultationChoice) {
           // User chose to email attorney directly
+          trackAttorneyWarning('consultation_chosen');
           sendDirectAttorneyEmail();
         } else {
           // Third prompt - final warning with email button
@@ -72,10 +93,18 @@ export default function Home() {
           );
           
           if (finalChoice) {
+            trackAttorneyWarning('final_warning_accepted');
             sendAttorneyNotification();
+          } else {
+            trackAttorneyWarning('final_warning_dismissed');
           }
         }
       }
+    }
+    
+    // Track start of legal section
+    if (legalSections.includes(panelId) && panelId !== 'review') {
+      trackStartLog(panelId);
     }
     
     setCurrentPanel(panelId);
@@ -141,11 +170,13 @@ export default function Home() {
       const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=thomas.st.germain22@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
       window.open(gmailUrl, '_blank');
       showToast('Gmail opened. Send your consultation email to protect your legal rights.');
+      trackContactSubmit('direct_email_gmail');
     } else {
       // Open default email client
       const mailtoUrl = `mailto:thomas.st.germain22@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
       window.open(mailtoUrl);
       showToast('Email client opened. Send your consultation email to protect your legal rights.');
+      trackContactSubmit('direct_email_default');
     }
   };
 
@@ -187,11 +218,13 @@ export default function Home() {
       const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=thomas.st.germain22@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
       window.open(gmailUrl, '_blank');
       showToast('Gmail opened with attorney notification. Send immediately to establish attorney-client privilege.');
+      trackContactSubmit('attorney_notification_gmail');
     } else {
       // Open default email client
       const mailtoUrl = `mailto:thomas.st.germain22@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
       window.open(mailtoUrl);
       showToast('Email opened with attorney notification. Send immediately to establish attorney-client privilege.');
+      trackContactSubmit('attorney_notification_default');
     }
   };
 
@@ -268,9 +301,14 @@ export default function Home() {
         person: { name, email, employer, position }
       }));
       showToast('Employee saved');
+      
+      // Track signup conversion
+      trackSignup(result.caseId);
+      
       switchPanel('wagehour');
     } catch (error) {
       showToast('Error: ' + error.message);
+      trackError(error.message, 'employee_save');
     }
     setLoading(false);
   };
@@ -305,8 +343,12 @@ export default function Home() {
       await apiCall('wage-hour', payload);
       setState(prev => ({ ...prev, wh: payload }));
       showToast('Wage & Hour saved');
+      
+      // Track section save
+      trackSectionSave('wagehour', state.caseId);
     } catch (error) {
       showToast('Error: ' + error.message);
+      trackError(error.message, 'wage_hour_save');
     }
     setLoading(false);
   };
@@ -338,8 +380,12 @@ export default function Home() {
       await apiCall('discrimination-harassment', payload);
       setState(prev => ({ ...prev, dh: payload }));
       showToast('Discrimination/Harassment saved');
+      
+      // Track section save
+      trackSectionSave('disc', state.caseId);
     } catch (error) {
       showToast('Error: ' + error.message);
+      trackError(error.message, 'discrimination_harassment_save');
     }
     setLoading(false);
   };
@@ -368,8 +414,12 @@ export default function Home() {
       await apiCall('retaliation-wrongful-termination', payload);
       setState(prev => ({ ...prev, ra: payload }));
       showToast('Retaliation/Wrongful Termination saved');
+      
+      // Track section save
+      trackSectionSave('retal', state.caseId);
     } catch (error) {
       showToast('Error: ' + error.message);
+      trackError(error.message, 'retaliation_save');
     }
     setLoading(false);
   };
@@ -400,8 +450,12 @@ export default function Home() {
       await apiCall('leave-of-absence', payload);
       setState(prev => ({ ...prev, lv: payload }));
       showToast('Leave saved');
+      
+      // Track section save
+      trackSectionSave('leave', state.caseId);
     } catch (error) {
       showToast('Error: ' + error.message);
+      trackError(error.message, 'leave_save');
     }
     setLoading(false);
   };
@@ -431,8 +485,12 @@ export default function Home() {
       await apiCall('workplace-safety', payload);
       setState(prev => ({ ...prev, sf: payload }));
       showToast('Safety saved');
+      
+      // Track section save
+      trackSectionSave('safety', state.caseId);
     } catch (error) {
       showToast('Error: ' + error.message);
+      trackError(error.message, 'workplace_safety_save');
     }
     setLoading(false);
   };
@@ -502,8 +560,12 @@ export default function Home() {
     try {
       await navigator.clipboard.writeText(text);
       showToast('Summary copied');
+      
+      // Track export report conversion
+      trackExportReport(state.caseId);
     } catch (e) {
       showToast('Copy failed');
+      trackError('Clipboard copy failed', 'export_report');
     }
   };
 
@@ -543,7 +605,10 @@ export default function Home() {
       
       <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
         <button 
-          onClick={sendDirectAttorneyEmail}
+          onClick={() => {
+            trackContactSubmit('legal_notice_button');
+            sendDirectAttorneyEmail();
+          }}
           style={{ 
             background: '#14b8a6', 
             color: '#000', 

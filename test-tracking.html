@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Test Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
+        .test-section { background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        button { background: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 5px; }
+        button:hover { background: #45a049; }
+        .status { margin-top: 10px; padding: 10px; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Employment Law Tracker - Analytics Testing</h1>
+    
+    <div class="test-section">
+        <h2>📊 GA4 Status Check</h2>
+        <p>This page helps you test if Google Analytics 4 tracking is working correctly.</p>
+        <div id="ga4-status" class="status info">
+            Checking GA4 status...
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🎯 Test Conversion Events</h2>
+        <p>Click these buttons to test each conversion event. Check your GA4 Realtime view to see if events are firing.</p>
+        
+        <button onclick="testSignup()">Test Signup Event</button>
+        <button onclick="testStartLog()">Test Start Log Event</button>
+        <button onclick="testExportReport()">Test Export Report Event</button>
+        <button onclick="testContactSubmit()">Test Contact Submit Event</button>
+        
+        <div id="event-status" class="status info">
+            Ready to test events...
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>📈 How to Monitor</h2>
+        <ol>
+            <li>Open <a href="https://analytics.google.com/" target="_blank">Google Analytics</a></li>
+            <li>Go to Reports → Realtime</li>
+            <li>Click the test buttons above</li>
+            <li>Watch for events in the Realtime view</li>
+            <li>Events should appear within 30 seconds</li>
+        </ol>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 Debug Console</h2>
+        <p>Open your browser's Developer Tools (F12) and check the Console tab for gtag() calls and any errors.</p>
+        <button onclick="showDebugInfo()">Show Debug Info</button>
+        <div id="debug-info"></div>
+    </div>
+
+    <script>
+        // Check if GA4 is loaded
+        function checkGA4Status() {
+            const statusDiv = document.getElementById('ga4-status');
+            
+            if (typeof gtag === 'function') {
+                statusDiv.innerHTML = '✅ GA4 is loaded and ready!';
+                statusDiv.className = 'status success';
+                
+                // Send a test page view
+                gtag('event', 'page_view', {
+                    page_title: 'Tracking Test Page',
+                    page_location: window.location.href
+                });
+                
+            } else {
+                statusDiv.innerHTML = '❌ GA4 is not loaded. Check your measurement ID and network connection.';
+                statusDiv.className = 'status error';
+            }
+        }
+
+        // Test conversion events
+        function testSignup() {
+            if (typeof gtag === 'function') {
+                gtag('event', 'signup', {
+                    case_id: 'TEST_CASE_001',
+                    event_category: 'conversion'
+                });
+                updateEventStatus('✅ Signup event sent!');
+                console.log('Test signup event fired');
+            } else {
+                updateEventStatus('❌ GA4 not loaded');
+            }
+        }
+
+        function testStartLog() {
+            if (typeof gtag === 'function') {
+                gtag('event', 'start_log', {
+                    legal_section: 'test_section',
+                    event_category: 'conversion'
+                });
+                updateEventStatus('✅ Start log event sent!');
+                console.log('Test start_log event fired');
+            } else {
+                updateEventStatus('❌ GA4 not loaded');
+            }
+        }
+
+        function testExportReport() {
+            if (typeof gtag === 'function') {
+                gtag('event', 'export_report', {
+                    case_id: 'TEST_CASE_001',
+                    event_category: 'conversion'
+                });
+                updateEventStatus('✅ Export report event sent!');
+                console.log('Test export_report event fired');
+            } else {
+                updateEventStatus('❌ GA4 not loaded');
+            }
+        }
+
+        function testContactSubmit() {
+            if (typeof gtag === 'function') {
+                gtag('event', 'contact_submit', {
+                    contact_method: 'test_method',
+                    event_category: 'conversion'
+                });
+                updateEventStatus('✅ Contact submit event sent!');
+                console.log('Test contact_submit event fired');
+            } else {
+                updateEventStatus('❌ GA4 not loaded');
+            }
+        }
+
+        function updateEventStatus(message) {
+            const statusDiv = document.getElementById('event-status');
+            statusDiv.innerHTML = message;
+            statusDiv.className = message.includes('✅') ? 'status success' : 'status error';
+        }
+
+        function showDebugInfo() {
+            const debugDiv = document.getElementById('debug-info');
+            const info = {
+                'User Agent': navigator.userAgent,
+                'Current URL': window.location.href,
+                'GA4 Loaded': typeof gtag === 'function',
+                'DataLayer Exists': typeof dataLayer !== 'undefined',
+                'DataLayer Length': typeof dataLayer !== 'undefined' ? dataLayer.length : 'N/A',
+                'Timestamp': new Date().toISOString()
+            };
+            
+            let html = '<div style="background: #f8f9fa; padding: 10px; margin-top: 10px; border-radius: 5px; font-family: monospace; font-size: 12px;">';
+            for (const [key, value] of Object.entries(info)) {
+                html += `<div><strong>${key}:</strong> ${value}</div>`;
+            }
+            html += '</div>';
+            
+            debugDiv.innerHTML = html;
+            
+            console.log('Debug Info:', info);
+        }
+
+        // Check status when page loads
+        window.addEventListener('load', function() {
+            setTimeout(checkGA4Status, 1000); // Wait a bit for GA4 to load
+        });
+    </script>
+
+    <!-- Note: This test page doesn't include GA4 script - test on your actual site -->
+    <div class="test-section">
+        <h2>⚠️ Important Note</h2>
+        <p><strong>This test page won't work standalone.</strong> You need to test these functions on your actual Employment Law Tracker app where GA4 is loaded. Copy and paste the test functions into your browser console while on your live site.</p>
+    </div>
+</body>
+</html>

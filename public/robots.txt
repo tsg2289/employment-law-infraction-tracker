@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://employment-law-infraction-tracker.vercel.app/sitemap.xml
