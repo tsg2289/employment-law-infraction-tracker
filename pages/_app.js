@@ -3,6 +3,8 @@ import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { pageview, GA_TRACKING_ID } from '../lib/analytics';
+import JsonLd from '../components/JsonLd';
+import { SCHEMA_FRAGMENTS } from '../lib/siteMeta';
 import '../styles/globals.css';
 
 export default function App({ Component, pageProps }) {
@@ -51,6 +53,9 @@ export default function App({ Component, pageProps }) {
 
       <Component {...pageProps} />
       <Analytics />
+      
+      {/* Global Schema Markup */}
+      <JsonLd data={[SCHEMA_FRAGMENTS.organization, SCHEMA_FRAGMENTS.website]} />
     </>
   );
 }
