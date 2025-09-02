@@ -6,6 +6,17 @@ import Link from 'next/link';
 const samplePosts = [
   {
     id: 1,
+    title: "California Overtime Rules Explained (Daily vs. Weekly Overtime)",
+    slug: "california-overtime-rules-daily-vs-weekly",
+    excerpt: "Understanding California's overtime rules can be confusing, especially since the state's laws are stricter than federal law. Learn when you're entitled to overtime pay and how daily overtime differs from weekly overtime.",
+    category: "wage-hour",
+    tags: ["overtime", "california law", "daily overtime", "weekly overtime", "wage calculations", "employee rights"],
+    publishDate: "2024-01-20T09:00:00Z",
+    readTime: 6,
+    featuredImage: null
+  },
+  {
+    id: 2,
     title: "Understanding California's New Wage Theft Prevention Laws",
     slug: "california-wage-theft-prevention-laws-2024",
     excerpt: "California has strengthened its wage theft prevention laws in 2024. Learn what these changes mean for employees and how to protect yourself from unpaid wages.",
@@ -16,7 +27,7 @@ const samplePosts = [
     featuredImage: null
   },
   {
-    id: 2,
+    id: 3,
     title: "Recognizing Workplace Harassment: Know Your Rights",
     slug: "recognizing-workplace-harassment-know-your-rights",
     excerpt: "Workplace harassment takes many forms and can be subtle. Learn to recognize the signs and understand your legal protections under California and federal law.",
@@ -27,7 +38,7 @@ const samplePosts = [
     featuredImage: null
   },
   {
-    id: 3,
+    id: 4,
     title: "FMLA vs. CFRA: Understanding Your Leave Rights in California",
     slug: "fmla-vs-cfra-leave-rights-california",
     excerpt: "California employees have protection under both federal FMLA and state CFRA laws. Learn the differences and how to maximize your leave protections.",

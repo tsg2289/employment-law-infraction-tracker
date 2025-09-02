@@ -7,6 +7,64 @@ import { useRouter } from 'next/router';
 const posts = [
   {
     id: 1,
+    title: "California Overtime Rules Explained (Daily vs. Weekly Overtime)",
+    slug: "california-overtime-rules-daily-vs-weekly",
+    excerpt: "Understanding California's overtime rules can be confusing, especially since the state's laws are stricter than federal law. Learn when you're entitled to overtime pay and how daily overtime differs from weekly overtime.",
+    content: `
+      <p>Understanding California's overtime rules can be confusing, especially since the state's laws are stricter than federal law. If you're an employee in California, it's important to know when you are entitled to overtime pay—and how daily overtime differs from weekly overtime. This plain-English guide will break it down for you.</p>
+      
+      <h2>California Overtime Law Basics</h2>
+      <p>California labor law requires most non-exempt employees to receive overtime pay at 1.5 times their regular rate of pay ("time and a half") or even 2 times their regular rate ("double time") depending on how many hours are worked in a day or week.</p>
+      <p>These rules apply to hourly workers and, in many cases, salaried employees who are not exempt from overtime under state law.</p>
+      
+      <h2>Daily Overtime in California</h2>
+      <p>Unlike federal law, California calculates overtime on a daily basis. This means:</p>
+      <ul>
+        <li><strong>Over 8 hours in a single day:</strong> You must be paid 1.5x your regular rate.</li>
+        <li><strong>Over 12 hours in a single day:</strong> You must be paid 2x your regular rate.</li>
+        <li><strong>7th consecutive day in a workweek:</strong> The first 8 hours are paid at 1.5x, and hours beyond that at 2x.</li>
+      </ul>
+      
+      <h3>Example:</h3>
+      <p>If you work 13 hours on Tuesday, you earn:</p>
+      <ul>
+        <li>8 hours at your regular rate</li>
+        <li>4 hours at time and a half</li>
+        <li>1 hour at double time</li>
+      </ul>
+      
+      <h2>Weekly Overtime in California</h2>
+      <p>California also uses a weekly overtime rule. If you work more than 40 hours in a workweek, all hours over 40 must be paid at time and a half, regardless of how many hours you worked in any single day.</p>
+      
+      <h3>Example:</h3>
+      <p>If you work 9 hours Monday–Thursday (36 hours) and 5 hours Friday, your total is 41 hours.</p>
+      <p>Even though no single day went over 12 hours, the extra 1 hour puts you over 40 for the week, so that hour is paid at overtime (1.5x).</p>
+      
+      <h2>Key Differences: Daily vs. Weekly Overtime</h2>
+      <ul>
+        <li><strong>Daily Overtime:</strong> Protects employees who work long shifts in a single day.</li>
+        <li><strong>Weekly Overtime:</strong> Protects employees who work many moderate-length shifts across the week.</li>
+      </ul>
+      <p><strong>Both rules apply.</strong> Employers must follow whichever results in the employee receiving the greater amount of overtime pay.</p>
+      
+      <h2>Why This Matters</h2>
+      <p>Many employers accidentally (or sometimes intentionally) miscalculate overtime—either ignoring the daily rule, failing to pay for the 7th consecutive day, or only following the federal 40-hour weekly standard. Knowing your rights under California overtime law ensures you're not missing out on wages you've already earned.</p>
+      
+      <h2>Next Step: Check Your Wages</h2>
+      <p>Not sure if you're being paid correctly? Use our <a href="/tools/overtime-calculator">free overtime calculator</a> to see if your employer is following California's overtime rules.</p>
+      
+      <p>If you find unpaid overtime or have questions about your specific situation, <a href="/contact">reach out for a free consultation</a>. You may be entitled to recover unpaid wages, interest, and penalties.</p>
+      
+      <p>Don't let your employer shortchange you on overtime pay. <a href="/">Document your case with our Employment Law Infraction Tracker</a> and protect your rights under California law.</p>
+    `,
+    category: "wage-hour",
+    tags: ["overtime", "california law", "daily overtime", "weekly overtime", "wage calculations", "employee rights"],
+    publishDate: "2024-01-20T09:00:00Z",
+    readTime: 6,
+    featuredImage: null
+  },
+  {
+    id: 2,
     title: "Understanding California's New Wage Theft Prevention Laws",
     slug: "california-wage-theft-prevention-laws-2024",
     excerpt: "California has strengthened its wage theft prevention laws in 2024. Learn what these changes mean for employees and how to protect yourself from unpaid wages.",
@@ -59,7 +117,7 @@ const posts = [
     featuredImage: null
   },
   {
-    id: 2,
+    id: 3,
     title: "Recognizing Workplace Harassment: Know Your Rights",
     slug: "recognizing-workplace-harassment-know-your-rights",
     excerpt: "Workplace harassment takes many forms and can be subtle. Learn to recognize the signs and understand your legal protections under California and federal law.",
@@ -123,7 +181,7 @@ const posts = [
     featuredImage: null
   },
   {
-    id: 3,
+    id: 4,
     title: "FMLA vs. CFRA: Understanding Your Leave Rights in California",
     slug: "fmla-vs-cfra-leave-rights-california",
     excerpt: "California employees have protection under both federal FMLA and state CFRA laws. Learn the differences and how to maximize your leave protections.",
