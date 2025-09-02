@@ -74,9 +74,9 @@ export default function Home() {
         const consultationChoice = window.confirm(
           `⚖️ ATTORNEY CONSULTATION OPTIONS ⚖️\n\n` +
           `To protect your legal rights, you should consult with an employment attorney.\n\n` +
-          `Thomas St. Germain, Esq. specializes in employment law and created this tracker to help employees.\n\n` +
+          `The attorneys at Skeptical Lawyer specialize in employment law and created this tracker to help employees.\n\n` +
           `Choose your next step:\n` +
-          `• Click "OK" to email Attorney St. Germain now (RECOMMENDED)\n` +
+          `• Click "OK" to email the attorneys at Skeptical Lawyer now (RECOMMENDED)\n` +
           `• Click "Cancel" to see other options`
         );
         
@@ -137,7 +137,7 @@ export default function Home() {
     // Create direct consultation email content
     const subject = 'URGENT: Employment Law Consultation Request';
     const bodyText = 
-      `Dear Attorney St. Germain,\n\n` +
+      `Dear attorneys at Skeptical Lawyer,\n\n` +
       `I am requesting an urgent consultation regarding potential employment law violations. I found your Employment Law Infraction Tracker and need legal advice to protect my rights.\n\n` +
       `MY INFORMATION:\n` +
       `Name: ${state.person.name || '[Please provide]'}\n` +
@@ -169,13 +169,13 @@ export default function Home() {
     
     if (useGmail) {
       // Open Gmail compose
-      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=thomas.st.germain22@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=thomas@skepticallawyers.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
       window.open(gmailUrl, '_blank');
       showToast('Gmail opened. Send your consultation email to protect your legal rights.');
       trackContactSubmit('direct_email_gmail');
     } else {
       // Open default email client
-      const mailtoUrl = `mailto:thomas.st.germain22@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+      const mailtoUrl = `mailto:thomas@skepticallawyers.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
       window.open(mailtoUrl);
       showToast('Email client opened. Send your consultation email to protect your legal rights.');
       trackContactSubmit('direct_email_default');
@@ -217,13 +217,13 @@ export default function Home() {
     
     if (useGmail) {
       // Open Gmail compose
-      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=thomas.st.germain22@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=thomas@skepticallawyers.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
       window.open(gmailUrl, '_blank');
       showToast('Gmail opened with attorney notification. Send immediately to establish attorney-client privilege.');
       trackContactSubmit('attorney_notification_gmail');
     } else {
       // Open default email client
-      const mailtoUrl = `mailto:thomas.st.germain22@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+      const mailtoUrl = `mailto:thomas@skepticallawyers.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
       window.open(mailtoUrl);
       showToast('Email opened with attorney notification. Send immediately to establish attorney-client privilege.');
       trackContactSubmit('attorney_notification_default');
@@ -577,7 +577,7 @@ export default function Home() {
     
     const handleBeforeUnload = (e) => {
       if (legalSections.includes(currentPanel) && checkForUnsavedData()) {
-        const message = '⚠️ ATTORNEY-CLIENT PRIVILEGE WARNING ⚠️\n\nYou have unsaved employment law information. Leaving without consulting an attorney may compromise your legal protections. Consider contacting Thomas St. Germain, Esq. at thomas.st.germain22@gmail.com before proceeding.';
+        const message = '⚠️ ATTORNEY-CLIENT PRIVILEGE WARNING ⚠️\n\nYou have unsaved employment law information. Leaving without consulting an attorney may compromise your legal protections. Consider contacting Thomas St. Germain, Esq. at thomas@skepticallawyers.com before proceeding.';
         e.preventDefault();
         e.returnValue = message;
         return message;
@@ -603,7 +603,7 @@ export default function Home() {
       fontSize: '12px',
       fontWeight: position === 'bottom' ? 'bold' : 'normal'
     }}>
-      <strong>⚖️ {position === 'top' ? 'LEGAL NOTICE' : 'IMPORTANT REMINDER'}:</strong> Information entered here may be subject to attorney-client privilege if you consult with an attorney. For maximum legal protection, consider consulting Thomas St. Germain, Esq. (thomas.st.germain22@gmail.com) or another qualified employment attorney before proceeding.
+      <strong>⚖️ {position === 'top' ? 'LEGAL NOTICE' : 'IMPORTANT REMINDER'}:</strong> Information entered here may be subject to attorney-client privilege if you consult with an attorney. For maximum legal protection, consider consulting Thomas St. Germain, Esq. (thomas@skepticallawyers.com) or another qualified employment attorney before proceeding.
       
       <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
         <button 
@@ -679,7 +679,7 @@ export default function Home() {
               "@type": "Person",
               "name": "Thomas St. Germain",
               "jobTitle": "Employment Law Attorney",
-              "email": "thomas.st.germain22@gmail.com"
+              "email": "thomas@skepticallawyers.com"
             },
             "offers": {
               "@type": "Offer",
@@ -722,7 +722,7 @@ export default function Home() {
                   "@type": "Person",
                   "name": "Thomas St. Germain, Esq.",
                   "jobTitle": "Employment Law Attorney",
-                  "email": "thomas.st.germain22@gmail.com"
+                  "email": "thomas@skepticallawyers.com"
                 }
               },
               "featureList": [
@@ -752,7 +752,7 @@ export default function Home() {
                 "@type": "Person",
                 "name": "Thomas St. Germain, Esq.",
                 "jobTitle": "Employment Law Attorney",
-                "email": "thomas.st.germain22@gmail.com"
+                "email": "thomas@skepticallawyers.com"
               },
               "areaServed": "US-CA"
             })
@@ -879,8 +879,8 @@ export default function Home() {
           <footer>
             <div>Data is saved to the application database for review and export.</div>
             <div style={{ marginTop: '8px', fontSize: '11px', opacity: '0.8' }}>
-              Created by Thomas St. Germain, Esq. | Employment Law Attorney<br/>
-              For legal consultation: thomas.st.germain22@gmail.com
+              Created by the attorneys at Skeptical Lawyer | Employment Law Attorneys<br/>
+              For legal consultation: thomas@skepticallawyers.com
             </div>
           </footer>
         </aside>

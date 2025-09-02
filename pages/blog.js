@@ -338,9 +338,9 @@ export default function Blog({ posts = samplePosts }) {
             </div>
             
             <div className="footer-section">
-              <h4>Contact Attorney St. Germain</h4>
+              <h4>Contact the Attorneys at Skeptical Lawyer</h4>
               <p>
-                Email: <a href="mailto:thomas.st.germain22@gmail.com">thomas.st.germain22@gmail.com</a><br/>
+                Email: <a href="mailto:thomas@skepticallawyers.com">thomas@skepticallawyers.com</a><br/>
                 For legal consultation and case evaluation
               </p>
             </div>

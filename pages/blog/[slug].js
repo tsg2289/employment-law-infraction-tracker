@@ -304,7 +304,7 @@ export default function BlogPost({ post, relatedPosts }) {
         <meta property="og:url" content={`https://employment-law-infraction-tracker.vercel.app/blog/${post.slug}`} />
         <meta property="og:published_time" content={post.publishDate} />
         <meta property="og:modified_time" content={post.updatedDate || post.publishDate} />
-        <meta property="og:author" content="Thomas St. Germain, Esq." />
+        <meta property="og:author" content="the attorneys at Skeptical Lawyer, Esq." />
         {post.featuredImage && <meta property="og:image" content={post.featuredImage} />}
         
         {/* Twitter */}
@@ -325,16 +325,16 @@ export default function BlogPost({ post, relatedPosts }) {
               "image": post.featuredImage || null,
               "author": {
                 "@type": "Person",
-                "name": "Thomas St. Germain, Esq.",
+                "name": "the attorneys at Skeptical Lawyer, Esq.",
                 "jobTitle": "Employment Law Attorney",
-                "email": "thomas.st.germain22@gmail.com"
+                "email": "thomas@skepticallawyers.com"
               },
               "publisher": {
                 "@type": "Organization",
                 "name": "Employment Law Infraction Tracker",
                 "founder": {
                   "@type": "Person",
-                  "name": "Thomas St. Germain, Esq."
+                  "name": "the attorneys at Skeptical Lawyer, Esq."
                 }
               },
               "datePublished": post.publishDate,
@@ -389,7 +389,7 @@ export default function BlogPost({ post, relatedPosts }) {
             <div className="post-meta">
               <div className="author-info">
                 <div className="author-details">
-                  <strong>Thomas St. Germain, Esq.</strong>
+                  <strong>the attorneys at Skeptical Lawyer, Esq.</strong>
                   <span>Employment Law Attorney</span>
                 </div>
               </div>
@@ -436,11 +436,11 @@ export default function BlogPost({ post, relatedPosts }) {
                   <h3>Need Legal Help?</h3>
                   <p>
                     If you&apos;re experiencing employment law violations, don&apos;t wait. 
-                    Contact attorney Thomas St. Germain for a consultation.
+                    Contact attorney the attorneys at Skeptical Lawyer for a consultation.
                   </p>
                   <div className="cta-actions">
                     <a 
-                      href="mailto:thomas.st.germain22@gmail.com?subject=Legal Consultation Request"
+                      href="mailto:thomas@skepticallawyers.com?subject=Legal Consultation Request"
                       className="btn primary"
                     >
                       📧 Email Attorney
@@ -542,7 +542,7 @@ export default function BlogPost({ post, relatedPosts }) {
             <div className="footer-section">
               <h4>Contact Attorney St. Germain</h4>
               <p>
-                Email: <a href="mailto:thomas.st.germain22@gmail.com">thomas.st.germain22@gmail.com</a><br/>
+                Email: <a href="mailto:thomas@skepticallawyers.com">thomas@skepticallawyers.com</a><br/>
                 For legal consultation and case evaluation
               </p>
             </div>
@@ -559,7 +559,7 @@ export default function BlogPost({ post, relatedPosts }) {
           </div>
           
           <div className="footer-bottom">
-            <p>&copy; 2024 Employment Law Infraction Tracker. Created by Thomas St. Germain, Esq.</p>
+            <p>&copy; 2024 Employment Law Infraction Tracker. Created by the attorneys at Skeptical Lawyer, Esq.</p>
           </div>
         </footer>
       </div>

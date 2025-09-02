@@ -5,8 +5,8 @@ export default function About() {
   return (
     <>
       <Head>
-        <title>About - Employment Law Infraction Tracker | Thomas St. Germain, Esq.</title>
-        <meta name="description" content="Learn about the Employment Law Infraction Tracker, created by attorney Thomas St. Germain to help employees document workplace violations and protect their rights." />
+        <title>About - Employment Law Infraction Tracker | the attorneys at Skeptical Lawyer, Esq.</title>
+        <meta name="description" content="Learn about the Employment Law Infraction Tracker, created by attorney the attorneys at Skeptical Lawyer to help employees document workplace violations and protect their rights." />
         <meta name="keywords" content="employment attorney, thomas st germain, workplace violations, employment law, california labor law" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -20,7 +20,7 @@ export default function About() {
           <section className="hero-section">
             <h1>About the Employment Law Infraction Tracker</h1>
             <p className="lead">
-              Created by employment attorney Thomas St. Germain to empower employees with 
+              Created by employment attorney the attorneys at Skeptical Lawyer to empower employees with 
               knowledge of their rights and tools to document workplace violations.
             </p>
           </section>
@@ -45,9 +45,9 @@ export default function About() {
           <section className="attorney-profile">
             <div className="profile-content">
               <div className="attorney-info">
-                <h2>About Thomas St. Germain, Esq.</h2>
+                <h2>About the attorneys at Skeptical Lawyer, Esq.</h2>
                 <p>
-                  Thomas St. Germain is a licensed attorney specializing in employment law with a focus 
+                  the attorneys at Skeptical Lawyer is a licensed attorney specializing in employment law with a focus 
                   on protecting employee rights. With extensive experience in California employment law, 
                   he has witnessed firsthand how workplace violations can devastate employees' lives 
                   and careers.
@@ -279,7 +279,7 @@ export default function About() {
           </section>
 
           <section className="contact-info">
-            <h2>Contact Attorney Thomas St. Germain</h2>
+            <h2>Contact Attorney the attorneys at Skeptical Lawyer</h2>
             <div className="contact-card">
               <p>
                 For legal consultation regarding documented workplace violations:
@@ -288,7 +288,7 @@ export default function About() {
               <div className="contact-details">
                 <div className="contact-method">
                   <h3>📧 Email</h3>
-                  <p>thomas.st.germain22@gmail.com</p>
+                  <p>thomas@skepticallawyers.com</p>
                   <p><small>Preferred method for initial consultations</small></p>
                 </div>
                 

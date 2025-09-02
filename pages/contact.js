@@ -28,7 +28,7 @@ export default function Contact() {
     
     const bodyText = 
       `EMPLOYMENT LAW CONSULTATION REQUEST\n\n` +
-      `Dear Attorney St. Germain,\n\n` +
+      `Dear attorneys at Skeptical Lawyer,\n\n` +
       `I am requesting a consultation regarding potential employment law violations. I found your Employment Law Infraction Tracker and need legal advice to protect my rights.\n\n` +
       `CONTACT INFORMATION:\n` +
       `Name: ${formData.name || '[Please provide]'}\n` +
@@ -70,10 +70,10 @@ export default function Contact() {
     );
     
     if (useGmail) {
-      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=thomas.st.germain22@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=thomas@skepticallawyers.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
       window.open(gmailUrl, '_blank');
     } else {
-      const mailtoUrl = `mailto:thomas.st.germain22@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+      const mailtoUrl = `mailto:thomas@skepticallawyers.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
       window.open(mailtoUrl);
     }
   };
@@ -110,7 +110,7 @@ export default function Contact() {
                 to preserve your rights and evidence.
               </p>
               <div className="urgent-contact">
-                <p><strong>Email:</strong> thomas.st.germain22@gmail.com</p>
+                <p><strong>Email:</strong> thomas@skepticallawyers.com</p>
                 <p><strong>Subject Line:</strong> "URGENT - Employment Law Matter"</p>
               </div>
             </div>
@@ -470,7 +470,7 @@ export default function Contact() {
             <div className="contact-cards">
               <div className="contact-card">
                 <h3>📧 Email (Preferred)</h3>
-                <p><strong>thomas.st.germain22@gmail.com</strong></p>
+                <p><strong>thomas@skepticallawyers.com</strong></p>
                 <ul>
                   <li>Best for detailed consultation requests</li>
                   <li>Allows for secure document transmission</li>

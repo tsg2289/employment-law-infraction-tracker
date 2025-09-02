@@ -5,7 +5,7 @@ export default function HomeNew() {
   return (
     <>
       <Head>
-        <title>Employment Law Infraction Tracker - Know Your Rights, Track Violations | Thomas St. Germain, Esq.</title>
+        <title>Employment Law Infraction Tracker - Know Your Rights, Track Violations | the attorneys at Skeptical Lawyer, Esq.</title>
         <meta name="description" content="Free employment law tracker and educational resources. Document workplace violations, understand your rights, and get legal help for wage theft, discrimination, harassment, and wrongful termination in California." />
         <meta name="keywords" content="employment law tracker, workplace violations, california employment rights, wage theft, discrimination, harassment, wrongful termination" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,7 +29,7 @@ export default function HomeNew() {
             </div>
             
             <div className="hero-trust">
-              <p>✅ <strong>Created by Employment Attorney Thomas St. Germain</strong></p>
+              <p>✅ <strong>Created by Employment Attorney the attorneys at Skeptical Lawyer</strong></p>
               <p>🔒 <strong>Private & Secure</strong> • 📚 <strong>Free Legal Education</strong> • ⚖️ <strong>Attorney-Client Privilege Protection</strong></p>
             </div>
           </div>
@@ -97,7 +97,7 @@ export default function HomeNew() {
               
               <div className="feature">
                 <h3>⚖️ Get Legal Help</h3>
-                <p>Direct access to employment attorney Thomas St. Germain for legal consultation and representation when you need it.</p>
+                <p>Direct access to employment attorney the attorneys at Skeptical Lawyer for legal consultation and representation when you need it.</p>
               </div>
             </div>
           </div>
@@ -214,7 +214,7 @@ export default function HomeNew() {
         <section className="attorney-section">
           <div className="attorney-content">
             <div className="attorney-info">
-              <h2>Created by Employment Attorney Thomas St. Germain</h2>
+              <h2>Created by Employment Attorney the attorneys at Skeptical Lawyer</h2>
               <p>
                 This tracker was created by a licensed California employment attorney who has seen 
                 too many employees suffer violations without proper documentation or knowledge of their rights.

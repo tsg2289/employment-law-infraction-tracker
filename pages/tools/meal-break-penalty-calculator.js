@@ -20,7 +20,7 @@ export default function MealBreakPenaltyCalculator() {
     <>
       <Head>
         <title>Meal Break Penalty Calculator (CA) - Free Employment Law Tool</title>
-        <meta name="description" content="Calculate potential meal break penalties owed under California law. Free tool created by employment attorney Thomas St. Germain." />
+        <meta name="description" content="Calculate potential meal break penalties owed under California law. Free tool created by employment attorney the attorneys at Skeptical Lawyer." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://employment-law-infraction-tracker.vercel.app/tools/meal-break-penalty-calculator/" />
@@ -41,7 +41,7 @@ export default function MealBreakPenaltyCalculator() {
       <AppLd
         name="Meal Break Penalty Calculator (CA)"
         urlPath="/tools/meal-break-penalty-calculator/"
-        description="Calculate potential meal-break premiums and penalties under California employment law. Professional tool created by attorney Thomas St. Germain."
+        description="Calculate potential meal-break premiums and penalties under California employment law. Professional tool created by attorney the attorneys at Skeptical Lawyer."
         category="BusinessApplication"
         features={[
           "California Meal Break Penalty Calculation",
@@ -246,7 +246,7 @@ export default function MealBreakPenaltyCalculator() {
               Start Tracking →
             </a>
             <a 
-              href="mailto:thomas.st.germain22@gmail.com"
+              href="mailto:thomas@skepticallawyers.com"
               style={{ 
                 display: 'inline-block',
                 border: '1px solid #14b8a6',

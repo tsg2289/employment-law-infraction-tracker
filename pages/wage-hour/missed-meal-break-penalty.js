@@ -27,7 +27,7 @@ export default function MissedMealBreakPenalty() {
     <>
       <Head>
         <title>Missed Meal Break Penalty California: How It Works + Free Tracker</title>
-        <meta name="description" content="Learn California's meal break penalty rules with plain-English examples. Document violations with our professional tracker created by employment attorney Thomas St. Germain." />
+        <meta name="description" content="Learn California's meal break penalty rules with plain-English examples. Document violations with our professional tracker created by employment attorney the attorneys at Skeptical Lawyer." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://employment-law-infraction-tracker.vercel.app/wage-hour/missed-meal-break-penalty/" />
@@ -103,7 +103,7 @@ export default function MissedMealBreakPenalty() {
               borderBottom: '1px solid #1f2937',
               paddingBottom: '20px'
             }}>
-              By Thomas St. Germain, Esq. • Updated December 19, 2024 • 6 min read
+              By the attorneys at Skeptical Lawyer, Esq. • Updated December 19, 2024 • 6 min read
             </div>
           </header>
 
@@ -188,11 +188,11 @@ export default function MissedMealBreakPenalty() {
           }}>
             <h2 style={{ color: '#14b8a6', marginBottom: '16px' }}>Need Legal Help?</h2>
             <p style={{ marginBottom: '16px' }}>
-              This tracker was created by Thomas St. Germain, Esq., a California employment attorney.
+              This tracker was created by the attorneys at Skeptical Lawyer, Esq., a California employment attorney.
               For personalized legal advice about your meal break violations:
             </p>
             <a 
-              href="mailto:thomas.st.germain22@gmail.com"
+              href="mailto:thomas@skepticallawyers.com"
               style={{ 
                 display: 'inline-block',
                 background: '#14b8a6', 
