@@ -178,6 +178,7 @@ export default function Blog() {
                 <article key={post.id} className="post-card">
                   {post.featuredImage && (
                     <div className="post-image">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={post.featuredImage} alt={post.title} />
                     </div>
                   )}

@@ -12,30 +12,32 @@ export default function BlogPost() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const response = await fetch(`/api/blog/posts/${slug}`);
+        if (response.ok) {
+          const data = await response.json();
+          setPost(data.post);
+          setRelatedPosts(data.relatedPosts || []);
+        } else if (response.status === 404) {
+          setError('Post not found');
+        } else {
+          setError('Failed to load post');
+        }
+      } catch (error) {
+        console.error('Error fetching post:', error);
+        setError('Failed to load post');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     if (slug) {
       fetchPost();
     }
   }, [slug]);
 
-  const fetchPost = async () => {
-    try {
-      const response = await fetch(`/api/blog/posts/${slug}`);
-      if (response.ok) {
-        const data = await response.json();
-        setPost(data.post);
-        setRelatedPosts(data.relatedPosts || []);
-      } else if (response.status === 404) {
-        setError('Post not found');
-      } else {
-        setError('Failed to load post');
-      }
-    } catch (error) {
-      console.error('Error fetching post:', error);
-      setError('Failed to load post');
-    } finally {
-      setLoading(false);
-    }
-  };
+
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -91,7 +93,7 @@ export default function BlogPost() {
           <div className="error-state">
             <div className="error-icon">📄</div>
             <h1>Article Not Found</h1>
-            <p>The article you're looking for doesn't exist or has been moved.</p>
+            <p>The article you&apos;re looking for doesn&apos;t exist or has been moved.</p>
             <div className="error-actions">
               <Link href="/blog" className="btn primary">
                 Browse All Articles
@@ -227,6 +229,7 @@ export default function BlogPost() {
 
             {post.featuredImage && (
               <div className="featured-image">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={post.featuredImage} alt={post.title} />
               </div>
             )}
@@ -252,7 +255,7 @@ export default function BlogPost() {
                 <div className="cta-content">
                   <h3>Need Legal Help?</h3>
                   <p>
-                    If you're experiencing employment law violations, don't wait. 
+                    If you&apos;re experiencing employment law violations, don&apos;t wait. 
                     Contact attorney Thomas St. Germain for a consultation.
                   </p>
                   <div className="cta-actions">
