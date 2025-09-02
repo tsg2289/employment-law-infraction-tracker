@@ -250,6 +250,63 @@ export default function Blog({ posts = samplePosts }) {
           )}
         </main>
 
+        {/* Tracker CTA */}
+        <section className="tracker-cta-section" style={{
+          background: 'linear-gradient(135deg, var(--accent) 0%, #10a693 100%)',
+          color: 'var(--bg)',
+          padding: '60px 20px',
+          textAlign: 'center'
+        }}>
+          <div className="cta-content" style={{ maxWidth: '800px', margin: '0 auto' }}>
+            <h2 style={{ fontSize: '2.2rem', marginBottom: '16px', color: 'var(--bg)' }}>
+              🏛️ Document Your Employment Law Case
+            </h2>
+            <p style={{ 
+              fontSize: '1.2rem', 
+              marginBottom: '30px', 
+              color: 'rgba(255,255,255,0.9)',
+              lineHeight: '1.6'
+            }}>
+              Use our professional Employment Law Infraction Tracker to organize your case, 
+              document violations, and protect your legal rights with attorney-client privilege.
+            </p>
+            <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <Link 
+                href="/" 
+                className="btn"
+                style={{ 
+                  background: 'var(--bg)', 
+                  color: 'var(--accent)',
+                  textDecoration: 'none',
+                  padding: '16px 32px',
+                  fontSize: '1.1rem',
+                  fontWeight: '700',
+                  borderRadius: '12px',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+                }}
+              >
+                🚀 Start Tracking Your Case
+              </Link>
+              <Link 
+                href="/contact" 
+                className="btn"
+                style={{ 
+                  background: 'transparent', 
+                  color: 'var(--bg)',
+                  border: '2px solid var(--bg)',
+                  textDecoration: 'none',
+                  padding: '14px 30px',
+                  fontSize: '1.1rem',
+                  fontWeight: '600',
+                  borderRadius: '12px'
+                }}
+              >
+                📞 Contact Attorney
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* Newsletter Signup */}
         <section className="newsletter-section">
           <div className="newsletter-content">

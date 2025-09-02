@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import { 
   trackSignup, 
   trackStartLog, 
@@ -845,6 +846,35 @@ export default function Home() {
             >
               Review
             </button>
+            
+            {/* Blog Link */}
+            <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid var(--line)' }}>
+              <Link 
+                href="/blog" 
+                className="blog-link"
+                style={{ 
+                  display: 'block',
+                  width: '100%',
+                  textAlign: 'left',
+                  background: 'linear-gradient(135deg, var(--accent) 0%, #10a693 100%)',
+                  color: 'var(--bg)',
+                  border: 'none',
+                  padding: '12px 16px',
+                  borderRadius: '10px',
+                  textDecoration: 'none',
+                  fontWeight: '600',
+                  fontSize: '14px',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseOver={(e) => e.target.style.transform = 'translateY(-2px)'}
+                onMouseOut={(e) => e.target.style.transform = 'translateY(0)'}
+              >
+                📚 Employment Law Blog
+              </Link>
+              <div style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '8px', textAlign: 'center' }}>
+                Legal insights & updates
+              </div>
+            </div>
           </nav>
           <footer>
             <div>Data is saved to the application database for review and export.</div>
@@ -941,6 +971,36 @@ export default function Home() {
                 </button>
                 <span className="note">Saved items appear in your database.</span>
               </div>
+              
+              {/* Related Blog Article */}
+              <div style={{ 
+                marginTop: '20px', 
+                padding: '16px', 
+                background: 'var(--panel)',
+                border: '1px solid var(--accent)',
+                borderRadius: '8px',
+                borderLeft: '4px solid var(--accent)'
+              }}>
+                <div style={{ fontSize: '12px', color: 'var(--accent)', fontWeight: '600', marginBottom: '8px' }}>
+                  💡 RELATED ARTICLE
+                </div>
+                <Link 
+                  href="/blog/california-wage-theft-prevention-laws-2024"
+                  style={{ 
+                    color: 'var(--ink)', 
+                    textDecoration: 'none', 
+                    fontWeight: '600',
+                    display: 'block',
+                    marginBottom: '6px'
+                  }}
+                >
+                  Understanding California&apos;s New Wage Theft Prevention Laws
+                </Link>
+                <div style={{ fontSize: '11px', color: 'var(--muted)' }}>
+                  Learn about updated penalties and protections for wage theft victims →
+                </div>
+              </div>
+              
               <LegalNotice position="bottom" />
             </section>
           )}
@@ -989,6 +1049,36 @@ export default function Home() {
                   {loading ? 'Saving...' : 'Save Discrimination/Harassment'}
                 </button>
               </div>
+              
+              {/* Related Blog Article */}
+              <div style={{ 
+                marginTop: '20px', 
+                padding: '16px', 
+                background: 'var(--panel)',
+                border: '1px solid var(--accent)',
+                borderRadius: '8px',
+                borderLeft: '4px solid var(--accent)'
+              }}>
+                <div style={{ fontSize: '12px', color: 'var(--accent)', fontWeight: '600', marginBottom: '8px' }}>
+                  💡 RELATED ARTICLE
+                </div>
+                <Link 
+                  href="/blog/recognizing-workplace-harassment-know-your-rights"
+                  style={{ 
+                    color: 'var(--ink)', 
+                    textDecoration: 'none', 
+                    fontWeight: '600',
+                    display: 'block',
+                    marginBottom: '6px'
+                  }}
+                >
+                  Recognizing Workplace Harassment: Know Your Rights
+                </Link>
+                <div style={{ fontSize: '11px', color: 'var(--muted)' }}>
+                  Learn to identify harassment and understand your legal protections →
+                </div>
+              </div>
+              
               <LegalNotice position="bottom" />
             </section>
           )}
@@ -1072,6 +1162,36 @@ export default function Home() {
                   {loading ? 'Saving...' : 'Save Leave'}
                 </button>
               </div>
+              
+              {/* Related Blog Article */}
+              <div style={{ 
+                marginTop: '20px', 
+                padding: '16px', 
+                background: 'var(--panel)',
+                border: '1px solid var(--accent)',
+                borderRadius: '8px',
+                borderLeft: '4px solid var(--accent)'
+              }}>
+                <div style={{ fontSize: '12px', color: 'var(--accent)', fontWeight: '600', marginBottom: '8px' }}>
+                  💡 RELATED ARTICLE
+                </div>
+                <Link 
+                  href="/blog/fmla-vs-cfra-leave-rights-california"
+                  style={{ 
+                    color: 'var(--ink)', 
+                    textDecoration: 'none', 
+                    fontWeight: '600',
+                    display: 'block',
+                    marginBottom: '6px'
+                  }}
+                >
+                  FMLA vs. CFRA: Understanding Your Leave Rights in California
+                </Link>
+                <div style={{ fontSize: '11px', color: 'var(--muted)' }}>
+                  Learn the differences between federal and state leave protections →
+                </div>
+              </div>
+              
               <LegalNotice position="bottom" />
             </section>
           )}
@@ -1134,6 +1254,44 @@ export default function Home() {
                   Copy Summary
                 </button>
                 <span className="note">The full data lives in the application database.</span>
+              </div>
+              
+              {/* Blog CTA */}
+              <div style={{ 
+                marginTop: '30px', 
+                padding: '24px', 
+                background: 'linear-gradient(135deg, var(--panel) 0%, var(--card) 100%)',
+                border: '1px solid var(--line)',
+                borderRadius: '12px'
+              }}>
+                <h3 style={{ color: 'var(--accent)', marginBottom: '12px', fontSize: '1.3rem' }}>
+                  📚 Learn More About Your Rights
+                </h3>
+                <p style={{ color: 'var(--muted)', marginBottom: '16px', lineHeight: '1.5' }}>
+                  Get expert insights on employment law, workplace rights, and legal protections. 
+                  Our blog covers the latest updates and practical advice for employees.
+                </p>
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                  <Link 
+                    href="/blog" 
+                    className="btn"
+                    style={{ 
+                      background: 'var(--accent)', 
+                      color: 'var(--bg)', 
+                      textDecoration: 'none',
+                      display: 'inline-block'
+                    }}
+                  >
+                    📖 Read Our Blog
+                  </Link>
+                  <Link 
+                    href="/blog/california-wage-theft-prevention-laws-2024" 
+                    className="btn secondary"
+                    style={{ textDecoration: 'none', display: 'inline-block' }}
+                  >
+                    💰 Latest: Wage Theft Laws
+                  </Link>
+                </div>
               </div>
             </section>
           )}
