@@ -1,15 +1,28 @@
 // Reusable JSON-LD component for structured data
 export default function JsonLd({ data }) {
-  const json = Array.isArray(data) ? data : [data];
+  if (!data) return null;
+  
+  // Handle single item vs array
+  let schemaData;
+  if (Array.isArray(data)) {
+    // For multiple items, create an array with @context
+    schemaData = {
+      "@context": "https://schema.org",
+      "@graph": data
+    };
+  } else {
+    // For single item, add @context directly
+    schemaData = {
+      "@context": "https://schema.org",
+      ...data
+    };
+  }
   
   return (
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ 
-        __html: JSON.stringify({
-          "@context": "https://schema.org",
-          ...json.length === 1 ? json[0] : json
-        }, null, 0) 
+        __html: JSON.stringify(schemaData, null, 0) 
       }}
     />
   );
