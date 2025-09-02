@@ -6,20 +6,20 @@ export default function SchemaTest() {
     <>
       <Head>
         <title>Schema Test Page</title>
+        
+        {/* Direct JSON-LD test - Inside Head for proper SSR */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Test Organization",
+              "url": "https://employment-law-infraction-tracker.vercel.app"
+            })
+          }}
+        />
       </Head>
-      
-      {/* Direct JSON-LD test without components */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "Test Organization",
-            "url": "https://employment-law-infraction-tracker.vercel.app"
-          })
-        }}
-      />
 
       <div style={{ padding: '20px', fontFamily: 'Arial' }}>
         <h1>Schema Test Page</h1>

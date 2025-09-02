@@ -696,48 +696,68 @@ export default function Home() {
             ]
           })}
         </script>
-      </Head>
-
-      {/* Direct JSON-LD Schema Test */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "Employment Law Infraction Tracker",
-            "description": "Professional employment law violation tracker created by attorney Thomas St. Germain. Document wage theft, discrimination, harassment, wrongful termination, and workplace safety issues with attorney-client privilege protection.",
-            "url": "https://employment-law-infraction-tracker.vercel.app/",
-            "applicationCategory": "LegalService",
-            "operatingSystem": "Web Browser",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            },
-            "publisher": {
+        
+        {/* SoftwareApplication Schema - Inside Head for proper SSR */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "Employment Law Infraction Tracker",
+              "description": "Professional employment law violation tracker created by attorney Thomas St. Germain. Document wage theft, discrimination, harassment, wrongful termination, and workplace safety issues with attorney-client privilege protection.",
+              "url": "https://employment-law-infraction-tracker.vercel.app/",
+              "applicationCategory": "LegalService",
+              "operatingSystem": "Web Browser",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "Employment Law Infraction Tracker",
+                "founder": {
+                  "@type": "Person",
+                  "name": "Thomas St. Germain, Esq.",
+                  "jobTitle": "Employment Law Attorney",
+                  "email": "thomas.st.germain22@gmail.com"
+                }
+              },
+              "featureList": [
+                "Wage & Hour Violation Tracking",
+                "Discrimination & Harassment Documentation", 
+                "Retaliation & Wrongful Termination Records",
+                "Leave of Absence Issue Tracking",
+                "Workplace Safety Violation Documentation",
+                "Attorney-Client Privilege Protection",
+                "Professional Legal Consultation Integration",
+                "Secure Data Export and Summary Generation"
+              ]
+            })
+          }}
+        />
+        
+        {/* Organization Schema - Inside Head for proper SSR */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
               "@type": "Organization",
               "name": "Employment Law Infraction Tracker",
+              "url": "https://employment-law-infraction-tracker.vercel.app",
               "founder": {
                 "@type": "Person",
                 "name": "Thomas St. Germain, Esq.",
                 "jobTitle": "Employment Law Attorney",
                 "email": "thomas.st.germain22@gmail.com"
-              }
-            },
-            "featureList": [
-              "Wage & Hour Violation Tracking",
-              "Discrimination & Harassment Documentation", 
-              "Retaliation & Wrongful Termination Records",
-              "Leave of Absence Issue Tracking",
-              "Workplace Safety Violation Documentation",
-              "Attorney-Client Privilege Protection",
-              "Professional Legal Consultation Integration",
-              "Secure Data Export and Summary Generation"
-            ]
-          })
-        }}
-      />
+              },
+              "areaServed": "US-CA"
+            })
+          }}
+        />
+      </Head>
 
       <a href="#main-content" className="skip-link">Skip to main content</a>
       <div className="wrap">
