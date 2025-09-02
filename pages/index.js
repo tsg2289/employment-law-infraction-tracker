@@ -638,19 +638,75 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Employment Infractions Tracker</title>
-        <meta name="description" content="Track employment law violations and infractions" />
+        <title>Employment Law Infraction Tracker - Document Workplace Violations | Thomas St. Germain, Esq.</title>
+        <meta name="description" content="Professional employment law violation tracker created by attorney Thomas St. Germain. Document wage theft, discrimination, harassment, wrongful termination, and workplace safety issues with attorney-client privilege protection." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://employment-law-infraction-tracker.vercel.app/" />
         <link rel="icon" href="/favicon.ico" />
+        
+        {/* Open Graph / Social Media */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Employment Law Infraction Tracker - Document Workplace Violations" />
+        <meta property="og:description" content="Professional employment law violation tracker created by attorney Thomas St. Germain. Document workplace violations with legal protection." />
+        <meta property="og:url" content="https://employment-law-infraction-tracker.vercel.app/" />
+        <meta property="og:site_name" content="Employment Law Infraction Tracker" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Employment Law Infraction Tracker" />
+        <meta name="twitter:description" content="Document workplace violations with attorney-client privilege protection" />
+        
+        {/* Legal/Professional */}
+        <meta name="author" content="Thomas St. Germain, Esq." />
+        <meta name="language" content="en-US" />
+        <meta name="geo.region" content="US-CA" />
+        <meta name="geo.placename" content="California" />
+        
+        {/* Structured Data for Legal Service */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Employment Law Infraction Tracker",
+            "description": "Professional tool for documenting employment law violations with attorney-client privilege protection",
+            "url": "https://employment-law-infraction-tracker.vercel.app/",
+            "applicationCategory": "LegalService",
+            "operatingSystem": "Web Browser",
+            "author": {
+              "@type": "Person",
+              "name": "Thomas St. Germain",
+              "jobTitle": "Employment Law Attorney",
+              "email": "thomas.st.germain22@gmail.com"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "featureList": [
+              "Wage & Hour Violation Tracking",
+              "Discrimination & Harassment Documentation", 
+              "Retaliation & Wrongful Termination Records",
+              "Leave of Absence Issue Tracking",
+              "Workplace Safety Violation Documentation",
+              "Attorney-Client Privilege Protection",
+              "Professional Legal Consultation Integration"
+            ]
+          })}
+        </script>
       </Head>
 
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <div className="wrap">
-        <aside className="sidebar">
-          <div className="brand">🏛️ Employment Infractions Tracker</div>
-          <div className="sheet-link">
+        <aside className="sidebar" role="navigation" aria-label="Main navigation">
+          <div className="brand">
+            <h1>🏛️ Employment Infractions Tracker</h1>
+          </div>
+          <div className="sheet-link" role="status" aria-live="polite">
             Data is stored locally in the application database.
           </div>
-          <nav>
+          <nav role="navigation" aria-label="Legal sections navigation">
             <button
               type="button"
               className={currentPanel === 'start' ? 'active' : ''}
@@ -658,6 +714,8 @@ export default function Home() {
                 e.preventDefault();
                 switchPanel('start');
               }}
+              aria-label="Go to employee information section"
+              aria-current={currentPanel === 'start' ? 'page' : undefined}
             >
               Start
             </button>
@@ -668,6 +726,8 @@ export default function Home() {
                 e.preventDefault();
                 switchPanel('wagehour');
               }}
+              aria-label="Go to wage and hour violations section"
+              aria-current={currentPanel === 'wagehour' ? 'page' : undefined}
             >
               Wage & Hour
             </button>
@@ -678,6 +738,8 @@ export default function Home() {
                 e.preventDefault();
                 switchPanel('disc');
               }}
+              aria-label="Go to discrimination and harassment section"
+              aria-current={currentPanel === 'disc' ? 'page' : undefined}
             >
               Discrimination & Harassment
             </button>
@@ -731,19 +793,33 @@ export default function Home() {
           </footer>
         </aside>
 
-        <main className="content">
+        <main id="main-content" className="content" role="main" aria-label="Employment law tracker form">
           {/* START: Employee info */}
           {currentPanel === 'start' && (
-            <section className="card">
-              <h2>Employee Information</h2>
+            <section className="card" role="form" aria-labelledby="employee-info-heading">
+              <h2 id="employee-info-heading">Employee Information</h2>
               <div className="row">
                 <div>
-                  <label htmlFor="name">Full Name</label>
-                  <input id="name" type="text" placeholder="Jane Doe" />
+                  <label htmlFor="name">Full Name *</label>
+                  <input 
+                    id="name" 
+                    type="text" 
+                    placeholder="Jane Doe" 
+                    required 
+                    aria-required="true"
+                    aria-describedby="name-help"
+                  />
+                  <div id="name-help" className="sr-only">Enter your full legal name</div>
                 </div>
                 <div>
                   <label htmlFor="email">Email</label>
-                  <input id="email" type="email" placeholder="jane@example.com" />
+                  <input 
+                    id="email" 
+                    type="email" 
+                    placeholder="jane@example.com"
+                    aria-describedby="email-help"
+                  />
+                  <div id="email-help" className="sr-only">Optional: Your email for contact purposes</div>
                 </div>
               </div>
               <div className="row">
@@ -1004,7 +1080,13 @@ export default function Home() {
 
       {/* Toast */}
       {toast && (
-        <div className="toast">
+        <div 
+          className="toast" 
+          role="status" 
+          aria-live="polite" 
+          aria-atomic="true"
+          aria-label="Notification message"
+        >
           {toast}
         </div>
       )}

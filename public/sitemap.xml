@@ -6,4 +6,70 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  
+  <!-- High-Priority Landing Pages -->
+  <url>
+    <loc>https://employment-law-infraction-tracker.vercel.app/wage-hour/missed-meal-break-penalty/</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://employment-law-infraction-tracker.vercel.app/wage-hour/overtime-guide/</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://employment-law-infraction-tracker.vercel.app/harassment/hostile-work-environment-examples/</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://employment-law-infraction-tracker.vercel.app/termination/wrongful-termination-checklist/</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Tools and Calculators -->
+  <url>
+    <loc>https://employment-law-infraction-tracker.vercel.app/tools/overtime-calculator/</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://employment-law-infraction-tracker.vercel.app/tools/leave-calculator/</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Topic Category Pages -->
+  <url>
+    <loc>https://employment-law-infraction-tracker.vercel.app/discrimination/pregnancy-discrimination-guide/</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://employment-law-infraction-tracker.vercel.app/leave/fmla-cfra-comparison/</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://employment-law-infraction-tracker.vercel.app/safety/cal-osha-complaint-guide/</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://employment-law-infraction-tracker.vercel.app/retaliation/fired-after-hr-complaint/</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
