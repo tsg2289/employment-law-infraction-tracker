@@ -7,6 +7,32 @@
     <priority>1.0</priority>
   </url>
   
+  <!-- Blog Pages -->
+  <url>
+    <loc>https://employment-law-infraction-tracker.vercel.app/blog</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://employment-law-infraction-tracker.vercel.app/blog/california-wage-theft-prevention-laws-2024</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://employment-law-infraction-tracker.vercel.app/blog/recognizing-workplace-harassment-know-your-rights</loc>
+    <lastmod>2024-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://employment-law-infraction-tracker.vercel.app/blog/fmla-vs-cfra-leave-rights-california</loc>
+    <lastmod>2024-01-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
   <!-- High-Priority Landing Pages -->
   <url>
     <loc>https://employment-law-infraction-tracker.vercel.app/wage-hour/missed-meal-break-penalty/</loc>
