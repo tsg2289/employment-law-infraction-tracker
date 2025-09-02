@@ -1,31 +1,47 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 
-export default function Blog() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+// Sample posts data - in production, this would come from a CMS or database
+const samplePosts = [
+  {
+    id: 1,
+    title: "Understanding California's New Wage Theft Prevention Laws",
+    slug: "california-wage-theft-prevention-laws-2024",
+    excerpt: "California has strengthened its wage theft prevention laws in 2024. Learn what these changes mean for employees and how to protect yourself from unpaid wages.",
+    category: "wage-hour",
+    tags: ["wage theft", "california law", "overtime", "unpaid wages", "employee rights"],
+    publishDate: "2024-01-15T08:00:00Z",
+    readTime: 5,
+    featuredImage: null
+  },
+  {
+    id: 2,
+    title: "Recognizing Workplace Harassment: Know Your Rights",
+    slug: "recognizing-workplace-harassment-know-your-rights",
+    excerpt: "Workplace harassment takes many forms and can be subtle. Learn to recognize the signs and understand your legal protections under California and federal law.",
+    category: "harassment",
+    tags: ["workplace harassment", "sexual harassment", "hostile work environment", "discrimination", "employee rights"],
+    publishDate: "2024-01-10T10:00:00Z",
+    readTime: 6,
+    featuredImage: null
+  },
+  {
+    id: 3,
+    title: "FMLA vs. CFRA: Understanding Your Leave Rights in California",
+    slug: "fmla-vs-cfra-leave-rights-california",
+    excerpt: "California employees have protection under both federal FMLA and state CFRA laws. Learn the differences and how to maximize your leave protections.",
+    category: "leave-of-absence",
+    tags: ["FMLA", "CFRA", "family leave", "medical leave", "pregnancy leave", "employee rights"],
+    publishDate: "2024-01-05T09:00:00Z",
+    readTime: 7,
+    featuredImage: null
+  }
+];
+
+export default function Blog({ posts = samplePosts }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-
-  useEffect(() => {
-    // Fetch blog posts from API
-    fetchPosts();
-  }, []);
-
-  const fetchPosts = async () => {
-    try {
-      const response = await fetch('/api/blog/posts');
-      if (response.ok) {
-        const data = await response.json();
-        setPosts(data.posts || []);
-      }
-    } catch (error) {
-      console.error('Error fetching posts:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const filteredPosts = posts.filter(post => {
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -167,12 +183,7 @@ export default function Blog() {
 
         {/* Blog Posts */}
         <main className="blog-content">
-          {loading ? (
-            <div className="loading-state">
-              <div className="loading-spinner"></div>
-              <p>Loading articles...</p>
-            </div>
-          ) : filteredPosts.length > 0 ? (
+          {filteredPosts.length > 0 ? (
             <div className="posts-grid">
               {filteredPosts.map(post => (
                 <article key={post.id} className="post-card">
@@ -295,4 +306,15 @@ export default function Blog() {
       </div>
     </>
   );
+}
+
+// Static generation for better performance
+export async function getStaticProps() {
+  return {
+    props: {
+      posts: samplePosts
+    },
+    // Revalidate every hour
+    revalidate: 3600
+  };
 }
