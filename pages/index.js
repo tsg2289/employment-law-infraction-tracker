@@ -698,22 +698,45 @@ export default function Home() {
         </script>
       </Head>
 
-      {/* SoftwareApplication Schema for the Employment Law Tracker */}
-      <AppLd 
-        name="Employment Law Infraction Tracker"
-        urlPath="/"
-        description="Professional employment law violation tracker created by attorney Thomas St. Germain. Document wage theft, discrimination, harassment, wrongful termination, and workplace safety issues with attorney-client privilege protection."
-        category="LegalService"
-        features={[
-          "Wage & Hour Violation Tracking",
-          "Discrimination & Harassment Documentation", 
-          "Retaliation & Wrongful Termination Records",
-          "Leave of Absence Issue Tracking",
-          "Workplace Safety Violation Documentation",
-          "Attorney-Client Privilege Protection",
-          "Professional Legal Consultation Integration",
-          "Secure Data Export and Summary Generation"
-        ]}
+      {/* Direct JSON-LD Schema Test */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Employment Law Infraction Tracker",
+            "description": "Professional employment law violation tracker created by attorney Thomas St. Germain. Document wage theft, discrimination, harassment, wrongful termination, and workplace safety issues with attorney-client privilege protection.",
+            "url": "https://employment-law-infraction-tracker.vercel.app/",
+            "applicationCategory": "LegalService",
+            "operatingSystem": "Web Browser",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Employment Law Infraction Tracker",
+              "founder": {
+                "@type": "Person",
+                "name": "Thomas St. Germain, Esq.",
+                "jobTitle": "Employment Law Attorney",
+                "email": "thomas.st.germain22@gmail.com"
+              }
+            },
+            "featureList": [
+              "Wage & Hour Violation Tracking",
+              "Discrimination & Harassment Documentation", 
+              "Retaliation & Wrongful Termination Records",
+              "Leave of Absence Issue Tracking",
+              "Workplace Safety Violation Documentation",
+              "Attorney-Client Privilege Protection",
+              "Professional Legal Consultation Integration",
+              "Secure Data Export and Summary Generation"
+            ]
+          })
+        }}
       />
 
       <a href="#main-content" className="skip-link">Skip to main content</a>

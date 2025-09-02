@@ -54,8 +54,8 @@ export default function App({ Component, pageProps }) {
       <Component {...pageProps} />
       <Analytics />
       
-      {/* Global Schema Markup */}
-      <JsonLd data={[SCHEMA_FRAGMENTS.organization, SCHEMA_FRAGMENTS.website]} />
+      {/* Global Schema Markup - Temporarily disabled for testing */}
+      {/* <JsonLd data={[SCHEMA_FRAGMENTS.organization, SCHEMA_FRAGMENTS.website]} /> */}
     </>
   );
 }
