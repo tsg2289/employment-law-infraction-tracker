@@ -143,11 +143,11 @@ export default function Home() {
               marginBottom: '3rem'
             }}>
               {[
-                { title: 'Wage & Hour Violations', icon: '💰', desc: 'Overtime, meal breaks, minimum wage issues', link: '/wage-hour' },
-                { title: 'Discrimination & Harassment', icon: '⚖️', desc: 'Protected class discrimination and harassment', link: '/discrimination' },
-                { title: 'Retaliation & Wrongful Termination', icon: '🚫', desc: 'Retaliation for protected activities', link: '/retaliation' },
-                { title: 'Leave of Absence Issues', icon: '🏥', desc: 'FMLA, CFRA, and other leave violations', link: '/leave' },
-                { title: 'Workplace Safety', icon: '🦺', desc: 'OSHA violations and unsafe conditions', link: '/safety' }
+                { title: 'Wage & Hour Violations', icon: '💰', desc: 'Overtime, meal breaks, minimum wage issues', link: '/tracker' },
+                { title: 'Discrimination & Harassment', icon: '⚖️', desc: 'Protected class discrimination and harassment', link: '/tracker' },
+                { title: 'Retaliation & Wrongful Termination', icon: '🚫', desc: 'Retaliation for protected activities', link: '/tracker' },
+                { title: 'Leave of Absence Issues', icon: '🏥', desc: 'FMLA, CFRA, and other leave violations', link: '/tracker' },
+                { title: 'Workplace Safety', icon: '🦺', desc: 'OSHA violations and unsafe conditions', link: '/tracker' }
               ].map((item, index) => (
                 <Link key={index} href={item.link} style={{ textDecoration: 'none' }}>
                   <div style={{ 
