@@ -1,8 +1,14 @@
+import { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import Link from 'next/link'
 
 export default function AuthNav() {
   const { user, loading, signOut } = useAuth()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleSignOut = async () => {
     try {
@@ -10,6 +16,10 @@ export default function AuthNav() {
     } catch (error) {
       console.error('Sign out error:', error)
     }
+  }
+
+  if (!mounted) {
+    return null
   }
 
   if (loading) {

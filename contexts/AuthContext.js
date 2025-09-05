@@ -17,11 +17,21 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
+    // Add a maximum loading timeout to prevent infinite loading
+    const maxLoadingTimeout = setTimeout(() => {
+      if (loading) {
+        console.warn('Authentication loading timeout reached')
+        setError('Authentication service timeout')
+        setLoading(false)
+      }
+    }, 3000) // 3 second max loading time
+
     // Check if Supabase is configured
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
       console.warn('Supabase environment variables not configured')
       setError('Authentication service not configured')
       setLoading(false)
+      clearTimeout(maxLoadingTimeout)
       return
     }
 
@@ -31,29 +41,40 @@ export const AuthProvider = ({ children }) => {
         const { data: { session } } = await supabase.auth.getSession()
         setUser(session?.user ?? null)
         setLoading(false)
+        clearTimeout(maxLoadingTimeout)
       } catch (err) {
         console.error('Auth session error:', err)
         setError('Authentication service unavailable')
         setLoading(false)
+        clearTimeout(maxLoadingTimeout)
       }
     }
 
     getInitialSession()
 
     // Listen for auth changes
+    let subscription
     try {
-      const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      const { data } = supabase.auth.onAuthStateChange(
         async (event, session) => {
           setUser(session?.user ?? null)
           setLoading(false)
+          clearTimeout(maxLoadingTimeout)
         }
       )
-
-      return () => subscription.unsubscribe()
+      subscription = data.subscription
     } catch (err) {
       console.error('Auth listener error:', err)
       setError('Authentication service unavailable')
       setLoading(false)
+      clearTimeout(maxLoadingTimeout)
+    }
+
+    return () => {
+      clearTimeout(maxLoadingTimeout)
+      if (subscription) {
+        subscription.unsubscribe()
+      }
     }
   }, [])
 

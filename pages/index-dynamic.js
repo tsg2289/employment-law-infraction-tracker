@@ -1,7 +1,71 @@
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useAuth } from '../contexts/AuthContext'
+import AuthNav from '../components/AuthNav'
 
 export default function Home() {
+  const { user, loading } = useAuth()
+  const router = useRouter()
+  const [showFeatures, setShowFeatures] = useState(false)
+  const [authError, setAuthError] = useState(null)
+  const [mounted, setMounted] = useState(false)
+
+  // Handle hydration
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // If user is authenticated, redirect to dashboard (only after mounting)
+  useEffect(() => {
+    if (mounted && !loading && user) {
+      router.push('/dashboard')
+    }
+  }, [user, loading, router, mounted])
+
+  // Add timeout for loading state to prevent infinite loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (loading) {
+        setAuthError('Authentication service is taking longer than expected. You can still use the site.')
+      }
+    }, 5000) // 5 second timeout
+
+    return () => clearTimeout(timer)
+  }, [loading])
+
+  // Don't render anything until mounted (prevents hydration mismatch)
+  if (!mounted) {
+    return null
+  }
+
+  // If there's an auth error or loading takes too long, show the page anyway
+  if (loading && !authError) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ 
+            width: '40px', 
+            height: '40px', 
+            border: '4px solid #e5e7eb', 
+            borderTop: '4px solid #3b82f6', 
+            borderRadius: '50%', 
+            animation: 'spin 1s linear infinite',
+            margin: '0 auto 1rem'
+          }} />
+          <p style={{ color: '#6b7280' }}>Loading...</p>
+          <style jsx>{`
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+          `}</style>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <>
       <Head>
@@ -12,38 +76,19 @@ export default function Home() {
       </Head>
 
       <div style={{ minHeight: '100vh', backgroundColor: '#ffffff' }}>
-        {/* Simple Navigation */}
-        <div style={{ 
-          padding: '1rem', 
-          textAlign: 'right', 
-          backgroundColor: '#f9fafb', 
-          borderBottom: '1px solid #e5e7eb' 
-        }}>
-          <Link 
-            href="/auth/signin" 
-            style={{ 
-              color: '#3b82f6', 
-              textDecoration: 'none', 
-              marginRight: '1rem',
-              fontWeight: '500'
-            }}
-          >
-            Sign In
-          </Link>
-          <Link 
-            href="/auth/signup" 
-            style={{ 
-              backgroundColor: '#3b82f6',
-              color: 'white',
-              padding: '0.5rem 1rem',
-              borderRadius: '0.375rem',
-              textDecoration: 'none',
-              fontWeight: '500'
-            }}
-          >
-            Sign Up
-          </Link>
-        </div>
+        {authError && (
+          <div style={{ 
+            backgroundColor: '#fef3c7', 
+            border: '1px solid #f59e0b', 
+            color: '#92400e', 
+            padding: '0.75rem', 
+            textAlign: 'center',
+            fontSize: '0.875rem'
+          }}>
+            ⚠️ {authError}
+          </div>
+        )}
+        <AuthNav />
         
         {/* Hero Section */}
         <div style={{ 
@@ -84,9 +129,25 @@ export default function Home() {
               }}>
                 Get Started Free
               </Link>
+            <button
+                onClick={() => setShowFeatures(!showFeatures)}
+                style={{ 
+                  backgroundColor: 'transparent',
+                  color: 'white',
+                  border: '2px solid white',
+                  padding: '1rem 2rem',
+                  borderRadius: '8px',
+                  fontWeight: '600',
+                  fontSize: '1.1rem',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s'
+                }}
+              >
+                Learn More
+              </button>
             </div>
-          </div>
-        </div>
+            </div>
+                </div>
 
         {/* Security Badge */}
         <div style={{ 
@@ -113,12 +174,12 @@ export default function Home() {
               <h3 style={{ color: '#1f2937', fontSize: '1.5rem', fontWeight: '600', margin: 0 }}>
                 Enterprise-Level Security
               </h3>
-            </div>
+                </div>
             <p style={{ color: '#6b7280', fontSize: '1rem', margin: 0 }}>
               Your sensitive employment data is protected with row-level security, email verification, and encrypted storage.
             </p>
-          </div>
-        </div>
+                </div>
+              </div>
 
         {/* Case Types Section */}
         <div style={{ 
@@ -165,8 +226,8 @@ export default function Home() {
                   </p>
                 </div>
               ))}
-            </div>
-
+              </div>
+              
             <div style={{ textAlign: 'center' }}>
               <Link href="/auth/signup" style={{
                 backgroundColor: '#3b82f6',
@@ -181,10 +242,10 @@ export default function Home() {
               }}>
                 Start Tracking Your Cases
               </Link>
-            </div>
-          </div>
-        </div>
-
+                </div>
+                </div>
+              </div>
+              
         {/* How It Works Section */}
         <div style={{ padding: '4rem 1rem', backgroundColor: '#1f2937', color: 'white' }}>
           <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
@@ -193,7 +254,7 @@ export default function Home() {
             </h2>
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
-              <div>
+                <div>
                 <div style={{ 
                   backgroundColor: '#3b82f6', 
                   color: 'white', 
@@ -214,7 +275,7 @@ export default function Home() {
               </div>
               
               <div>
-                <div style={{ 
+              <div style={{ 
                   backgroundColor: '#3b82f6', 
                   color: 'white', 
                   width: '60px', 
@@ -233,7 +294,7 @@ export default function Home() {
                 <p style={{ color: '#d1d5db', fontSize: '0.9rem' }}>Record employment law violations with our guided forms</p>
               </div>
               
-              <div>
+                <div>
                 <div style={{ 
                   backgroundColor: '#3b82f6', 
                   color: 'white', 
@@ -252,12 +313,12 @@ export default function Home() {
                 <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.5rem' }}>Track Progress</h3>
                 <p style={{ color: '#d1d5db', fontSize: '0.9rem' }}>Monitor your cases in your secure personal dashboard</p>
               </div>
-            </div>
-          </div>
-        </div>
-
+                </div>
+              </div>
+              </div>
+              
         {/* CTA Section */}
-        <div style={{ 
+              <div style={{ 
           padding: '4rem 1rem', 
           backgroundColor: '#3b82f6', 
           color: 'white', 
@@ -289,15 +350,15 @@ export default function Home() {
                 border: '2px solid white',
                 padding: '1rem 2rem',
                 borderRadius: '8px',
-                textDecoration: 'none',
-                fontWeight: '600',
+                    textDecoration: 'none', 
+                    fontWeight: '600',
                 fontSize: '1.1rem'
               }}>
                 Sign In
-              </Link>
-            </div>
-          </div>
-        </div>
+                  </Link>
+                </div>
+              </div>
+      </div>
 
         {/* Footer */}
         <div style={{ 
