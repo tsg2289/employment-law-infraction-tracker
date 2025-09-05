@@ -1,10 +1,25 @@
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useAuth } from '../contexts/AuthContext'
 import AuthNav from '../components/AuthNav'
+import { 
+  trackSignup, 
+  trackStartLog, 
+  trackSectionSave, 
+  trackExportReport, 
+  trackContactSubmit, 
+  trackPageView, 
+  trackAttorneyWarning, 
+  trackPrivilegeWarning,
+  trackError 
+} from '../lib/analytics'
 
-export default function Home() {
+export default function Tracker() {
+  const { user, loading: authLoading } = useAuth()
+  const router = useRouter()
+  
   const [state, setState] = useState({
     caseId: null,
     person: { name: '', email: '', employer: '', position: '' },
@@ -18,6 +33,44 @@ export default function Home() {
   const [currentPanel, setCurrentPanel] = useState('start');
   const [toast, setToast] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Redirect to sign-up if not authenticated
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.push('/auth/signup')
+    }
+  }, [user, authLoading, router])
+
+  // Show loading while checking authentication
+  if (authLoading) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ 
+            width: '40px', 
+            height: '40px', 
+            border: '4px solid #e5e7eb', 
+            borderTop: '4px solid #3b82f6', 
+            borderRadius: '50%', 
+            animation: 'spin 1s linear infinite',
+            margin: '0 auto 1rem'
+          }} />
+          <p style={{ color: '#6b7280' }}>Loading...</p>
+          <style jsx>{`
+            @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+          `}</style>
+        </div>
+      </div>
+    )
+  }
+
+  // Don't render tracker if not authenticated
+  if (!user) {
+    return null
+  }
 
   // Toast functionality
   const showToast = (message) => {
