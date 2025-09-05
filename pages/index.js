@@ -143,27 +143,52 @@ export default function Home() {
               marginBottom: '3rem'
             }}>
               {[
-                { title: 'Wage & Hour Violations', icon: '💰', desc: 'Overtime, meal breaks, minimum wage issues' },
-                { title: 'Discrimination & Harassment', icon: '⚖️', desc: 'Protected class discrimination and harassment' },
-                { title: 'Retaliation & Wrongful Termination', icon: '🚫', desc: 'Retaliation for protected activities' },
-                { title: 'Leave of Absence Issues', icon: '🏥', desc: 'FMLA, CFRA, and other leave violations' },
-                { title: 'Workplace Safety', icon: '🦺', desc: 'OSHA violations and unsafe conditions' }
+                { title: 'Wage & Hour Violations', icon: '💰', desc: 'Overtime, meal breaks, minimum wage issues', link: '/wage-hour' },
+                { title: 'Discrimination & Harassment', icon: '⚖️', desc: 'Protected class discrimination and harassment', link: '/discrimination' },
+                { title: 'Retaliation & Wrongful Termination', icon: '🚫', desc: 'Retaliation for protected activities', link: '/retaliation' },
+                { title: 'Leave of Absence Issues', icon: '🏥', desc: 'FMLA, CFRA, and other leave violations', link: '/leave' },
+                { title: 'Workplace Safety', icon: '🦺', desc: 'OSHA violations and unsafe conditions', link: '/safety' }
               ].map((item, index) => (
-                <div key={index} style={{ 
-                  backgroundColor: 'white', 
-                  padding: '1.5rem', 
-                  borderRadius: '8px',
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                  textAlign: 'center'
-                }}>
-                  <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{item.icon}</div>
-                  <h4 style={{ color: '#1f2937', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-                    {item.title}
-                  </h4>
-                  <p style={{ color: '#6b7280', fontSize: '0.9rem', lineHeight: '1.4' }}>
-                    {item.desc}
-                  </p>
-                </div>
+                <Link key={index} href={item.link} style={{ textDecoration: 'none' }}>
+                  <div style={{ 
+                    backgroundColor: 'white', 
+                    padding: '1.5rem', 
+                    borderRadius: '8px',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    transition: 'transform 0.2s, box-shadow 0.2s',
+                    ':hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 4px 8px rgba(0,0,0,0.15)'
+                    }
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)'
+                    e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.15)'
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)'
+                  }}
+                  >
+                    <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{item.icon}</div>
+                    <h4 style={{ color: '#1f2937', fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem' }}>
+                      {item.title}
+                    </h4>
+                    <p style={{ color: '#6b7280', fontSize: '0.9rem', lineHeight: '1.4' }}>
+                      {item.desc}
+                    </p>
+                    <div style={{ 
+                      marginTop: '1rem', 
+                      color: '#3b82f6', 
+                      fontSize: '0.875rem', 
+                      fontWeight: '500' 
+                    }}>
+                      Start Tracking →
+                    </div>
+                  </div>
+                </Link>
               ))}
             </div>
 
