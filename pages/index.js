@@ -9,15 +9,28 @@ export default function Home() {
   const { user, loading } = useAuth()
   const router = useRouter()
   const [showFeatures, setShowFeatures] = useState(false)
+  const [authError, setAuthError] = useState(null)
 
   // If user is authenticated, redirect to dashboard
   useEffect(() => {
-    if (user) {
+    if (!loading && user) {
       router.push('/dashboard')
     }
-  }, [user, router])
+  }, [user, loading, router])
 
-  if (loading) {
+  // Add timeout for loading state to prevent infinite loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (loading) {
+        setAuthError('Authentication service is taking longer than expected. You can still use the site.')
+      }
+    }, 5000) // 5 second timeout
+
+    return () => clearTimeout(timer)
+  }, [loading])
+
+  // If there's an auth error or loading takes too long, show the page anyway
+  if (loading && !authError) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ textAlign: 'center' }}>
@@ -52,6 +65,18 @@ export default function Home() {
       </Head>
 
       <div style={{ minHeight: '100vh', backgroundColor: '#ffffff' }}>
+        {authError && (
+          <div style={{ 
+            backgroundColor: '#fef3c7', 
+            border: '1px solid #f59e0b', 
+            color: '#92400e', 
+            padding: '0.75rem', 
+            textAlign: 'center',
+            fontSize: '0.875rem'
+          }}>
+            ⚠️ {authError}
+          </div>
+        )}
         <AuthNav />
         
         {/* Hero Section */}
