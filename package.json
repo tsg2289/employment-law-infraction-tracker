@@ -11,16 +11,28 @@
     "vercel-build": "npm run build"
   },
   "dependencies": {
+    "@supabase/auth-ui-react": "^0.4.7",
+    "@supabase/auth-ui-shared": "^0.1.8",
+    "@supabase/ssr": "^0.7.0",
+    "@supabase/supabase-js": "^2.57.2",
+    "@vercel/analytics": "^1.0.2",
     "next": "^14.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "@vercel/analytics": "^1.0.2"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "eslint": "^8.48.0",
     "eslint-config-next": "^14.0.0"
   },
-  "keywords": ["employment", "law", "tracker", "infractions", "web-app", "nextjs", "vercel"],
+  "keywords": [
+    "employment",
+    "law",
+    "tracker",
+    "infractions",
+    "web-app",
+    "nextjs",
+    "vercel"
+  ],
   "author": "Employment Law Tracker",
   "license": "MIT"
 }

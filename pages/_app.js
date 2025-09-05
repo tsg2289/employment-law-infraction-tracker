@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { pageview, GA_TRACKING_ID } from '../lib/analytics';
 import JsonLd from '../components/JsonLd';
 import { SCHEMA_FRAGMENTS } from '../lib/siteMeta';
+import { AuthProvider } from '../contexts/AuthContext';
 import '../styles/globals.css';
 
 export default function App({ Component, pageProps }) {
@@ -51,7 +52,9 @@ export default function App({ Component, pageProps }) {
         `}
       </Script>
 
-      <Component {...pageProps} />
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
       <Analytics />
       
       {/* Global Schema Markup - Temporarily disabled for testing */}
